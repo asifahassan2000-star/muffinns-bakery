@@ -52,8 +52,9 @@ export const MenuPage: React.FC<MenuPageProps> = ({
   const fallbackBakeryImage = 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=800&q=80';
 
   const handleOrderClick = (item: MenuImageItem) => {
-    const message = encodeURIComponent(`Hello Muffinns Sweets & Bakers! I would like to order: ${item.name} (${item.category}).`);
-    window.open(`https://wa.me/923086567774?text=${message}`, '_blank');
+    const itemInfo = item.price ? `${item.name} (${item.price})` : `${item.name} (${item.category})`;
+    const message = encodeURIComponent(`Hello Muffinns Sweets & Bakers! I would like to order: ${itemInfo}.`);
+    window.open(`https://wa.me/923202587047?text=${message}`, '_blank');
   };
 
   return (
@@ -76,7 +77,7 @@ export const MenuPage: React.FC<MenuPageProps> = ({
             <div className="hidden sm:block h-6 w-px bg-white/20" />
             <div className="flex items-center gap-2.5">
               <span className="font-extrabold text-lg sm:text-xl tracking-tight uppercase" style={{ fontFamily: "'Founders Grotesk', sans-serif" }}>
-                Muffinns <span className="text-[#ffe29a]">Menu</span>
+                Muffins <span className="text-[#ffe29a]">Menu</span>
               </span>
               <span className="hidden md:inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#ef4423] text-white uppercase tracking-wider">
                 Full Collection
@@ -86,11 +87,11 @@ export const MenuPage: React.FC<MenuPageProps> = ({
 
           <div className="flex items-center gap-2 sm:gap-4">
             <a
-              href="tel:+923086567774"
+              href="tel:+923202587047"
               className="hidden lg:flex items-center gap-2 text-xs font-medium text-white/80 hover:text-white transition"
             >
               <Phone className="w-3.5 h-3.5 text-[#ffe29a]" />
-              <span>0331 6567774</span>
+              <span>+92 320 2587047</span>
             </a>
             <button
               onClick={onClose}
@@ -107,7 +108,7 @@ export const MenuPage: React.FC<MenuPageProps> = ({
       <section className="relative px-4 sm:px-8 pt-8 pb-6 max-w-7xl mx-auto w-full">
         <div className="text-center max-w-3xl mx-auto">
           <span className="text-xs sm:text-sm font-bold uppercase tracking-widest text-[#ffe29a]">
-            Artisan Patisserie &amp; Traditional Confections
+            Artisan Patisserie &amp; Traditional Confections • Since 1988
           </span>
           <h1 
             className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight uppercase mt-2 mb-3"
@@ -125,7 +126,7 @@ export const MenuPage: React.FC<MenuPageProps> = ({
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/50" />
             <input
               type="text"
-              placeholder="Search muffins, cakes, gulab jamun, croissants..."
+              placeholder="Search muffins, cupcakes, sweets, breads..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-12 pr-10 py-3 sm:py-3.5 rounded-full bg-white/10 hover:bg-white/15 focus:bg-white/20 border border-white/20 focus:border-[#ef4423] outline-none text-white placeholder-white/50 text-sm sm:text-base transition shadow-lg"
@@ -217,25 +218,53 @@ export const MenuPage: React.FC<MenuPageProps> = ({
                       }}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent opacity-70 group-hover:opacity-50 transition-opacity" />
                     
-                    {/* Category Tag */}
-                    <div className="absolute top-3 left-3">
+                    {/* Category & Badge Tags */}
+                    <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2">
                       <span className="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-black/60 backdrop-blur-md text-[#ffe29a] border border-white/10">
                         {item.category}
                       </span>
+                      {item.badge && (
+                        <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#ef4423] text-white shadow uppercase tracking-wider">
+                          {item.badge}
+                        </span>
+                      )}
                     </div>
+
+                    {/* Price Tag if available */}
+                    {item.price && (
+                      <div className="absolute bottom-3 right-3">
+                        <span className="px-3 py-1 rounded-full text-xs font-bold bg-white text-[#0e4749] shadow-lg">
+                          {item.price}
+                        </span>
+                      </div>
+                    )}
                   </div>
 
                   {/* Card Content */}
                   <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
                     <div>
-                      <h3 className="font-bold text-base sm:text-lg text-white group-hover:text-[#ffe29a] transition-colors leading-snug">
-                        {item.name}
-                      </h3>
-                      <p className="text-xs text-white/60 mt-1">
-                        Freshly prepared daily &bull; 100% Halal &bull; Artisan Quality
-                      </p>
+                      <div className="flex items-start justify-between gap-2">
+                        <h3 className="font-bold text-base sm:text-lg text-white group-hover:text-[#ffe29a] transition-colors leading-snug">
+                          {item.name}
+                        </h3>
+                        {item.price && (
+                          <span className="text-[#ffe29a] font-bold text-sm whitespace-nowrap sm:hidden">
+                            {item.price}
+                          </span>
+                        )}
+                      </div>
+                      
+                      {item.description ? (
+                        <p className="text-xs text-white/80 mt-1.5 line-clamp-3 leading-relaxed">
+                          {item.description}
+                        </p>
+                      ) : (
+                        <p className="text-xs text-white/60 mt-1">
+                          Freshly prepared daily &bull; 100% Desi Ghee &amp; Pure Butter &bull; Artisan Quality
+                        </p>
+                      )}
                     </div>
 
                     <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between gap-2">
@@ -244,7 +273,7 @@ export const MenuPage: React.FC<MenuPageProps> = ({
                         className="w-full py-2.5 px-4 rounded-xl bg-[#ef4423] hover:bg-[#d83b1d] active:scale-98 text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 transition cursor-pointer shadow-md"
                       >
                         <ShoppingBag className="w-4 h-4" />
-                        <span>Order / Inquire</span>
+                        <span>Order Now {item.price ? `(${item.price})` : ''}</span>
                       </button>
                     </div>
                   </div>

@@ -98,6 +98,60 @@ export default function App() {
     };
   }, []);
 
+  // Interactive 3D movement and mouse parallax on Bahawalpur map
+  useEffect(() => {
+    const mapBlock = document.querySelector('.custom_map-map_block') as HTMLElement | null;
+    const mapImg = document.querySelector('.bwp-animated-map') as HTMLElement | null;
+    if (!mapBlock || !mapImg) return;
+
+    let isHovering = false;
+    let rafId: number | null = null;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isHovering) return;
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        const rect = mapBlock.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -9;
+        const rotateY = ((x - centerX) / centerX) * 9;
+        mapImg.style.transform = `perspective(1200px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.025, 1.025, 1.025)`;
+      });
+    };
+
+    const handleMouseEnter = () => {
+      isHovering = true;
+      mapImg.style.animationPlayState = 'paused';
+      mapImg.style.transition = 'transform 0.12s cubic-bezier(0.2, 0.8, 0.4, 1)';
+    };
+
+    const handleMouseLeave = () => {
+      isHovering = false;
+      if (rafId) cancelAnimationFrame(rafId);
+      mapImg.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+      mapImg.style.transform = '';
+      setTimeout(() => {
+        if (!isHovering) {
+          mapImg.style.animationPlayState = 'running';
+        }
+      }, 600);
+    };
+
+    mapBlock.addEventListener('mouseenter', handleMouseEnter);
+    mapBlock.addEventListener('mousemove', handleMouseMove);
+    mapBlock.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      mapBlock.removeEventListener('mouseenter', handleMouseEnter);
+      mapBlock.removeEventListener('mousemove', handleMouseMove);
+      mapBlock.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
+
   return (
     <>
       {/* DEDICATED MENU PAGE OVERLAY */}

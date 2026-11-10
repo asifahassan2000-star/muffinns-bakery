@@ -2,6 +2,9 @@ export interface MenuImageItem {
   name: string;
   category: string;
   image: string;
+  price?: string;
+  badge?: string;
+  description?: string;
 }
 
 export const COMPLETE_MENU_ITEMS: MenuImageItem[] = [
@@ -57,16 +60,77 @@ export const COMPLETE_MENU_ITEMS: MenuImageItem[] = [
   { name: "Soji Rus", category: "Biscuits & Cookies", image: "https://images.unsplash.com/photo-1509440159596-0249088772fh?w=600&auto=format&fit=crop&q=80" },
   { name: "Sada Papa", category: "Biscuits & Cookies", image: "https://images.unsplash.com/photo-1558961363-fa8fdf82db36?w=600&auto=format&fit=crop&q=80" },
 
-  // ================= MUFFINS & DESSERTS =================
-  { name: "Bakery Bliss - Variety Cupcakes & Muffins", category: "Muffins & Desserts", image: "https://i.ibb.co/KjxwTQQt/Whats-App-Image-2026-08-31-at-4-53-00-PM.jpg" },
-  { name: "Muffins & Cupcakes 3-Tier Stand", category: "Muffins & Desserts", image: "https://i.ibb.co/Cs4P2zPz/Whats-App-Image-2026-08-31-at-4-52-40-PM.jpg" },
-  { name: "Muffins Angry Bird", category: "Muffins & Desserts", image: "https://images.unsplash.com/photo-1576618148400-f54bed99fcf1?w=600&auto=format&fit=crop&q=80" },
-  { name: "Muffin KitKat", category: "Muffins & Desserts", image: "https://i.ibb.co/QFYv4SdF/Whats-App-Image-2026-09-05-at-11-03-11-AM.jpg" },
-  { name: "Muffin Choco Chip", category: "Muffins & Desserts", image: "https://i.ibb.co/KjxwTQQt/Whats-App-Image-2026-08-31-at-4-53-00-PM.jpg" },
-  { name: "Muffin Honey", category: "Muffins & Desserts", image: "https://i.ibb.co/6pLr3bj/Whats-App-Image-2026-09-05-at-11-04-41-AM.jpg" },
-  { name: "Red Velvet Cupcake", category: "Muffins & Desserts", image: "https://i.ibb.co/1JpwyS9m/Whats-App-Image-2026-09-05-at-11-06-22-AM.jpg" },
-  { name: "Muffin Fudge", category: "Muffins & Desserts", image: "https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?w=600&auto=format&fit=crop&q=80" },
-  { name: "Muffin Nutella", category: "Muffins & Desserts", image: "https://i.ibb.co/rGxfZ4VD/Whats-App-Image-2026-09-05-at-11-11-17-AM.jpg" },
+  // ================= MUFFINS & CUPCAKES (Signature Menu) =================
+  { 
+    name: "Bakery Bliss – Variety Cupcakes & Muffins", 
+    category: "Muffins & Desserts", 
+    price: "Rs 250",
+    badge: "Bakery Bliss",
+    description: "Assorted gourmet cupcakes & muffins on a white marble display stand featuring chocolate ganache, oreo crunch, vanilla swirl, and red velvet.",
+    image: "https://i.ibb.co/3ykCqZ0j/signature-muffins.jpg" 
+  },
+  { 
+    name: "Muffins & Cupcakes 3-Tier Stand", 
+    category: "Muffins & Desserts", 
+    price: "Rs 350",
+    badge: "Party Stand",
+    description: "3-tier silver dessert stand filled with soft pink frosted muffins and cupcakes sprinkled with chocolate cocoa nibs.",
+    image: "https://i.ibb.co/qF4Q75Hk/muffins-cupcakes.jpg" 
+  },
+  { 
+    name: "Muffin Choco Chip", 
+    category: "Muffins & Desserts", 
+    price: "Rs 170",
+    description: "Classic, moist vanilla muffin loaded with premium dark chocolate chips and glazed with light sugar syrup.",
+    image: "https://i.ibb.co/3ykCqZ0j/signature-muffins.jpg" 
+  },
+  { 
+    name: "Muffin KitKat", 
+    category: "Muffins & Desserts", 
+    price: "Rs 170",
+    badge: "KitKat Crunch",
+    description: "Decadent chocolate muffin loaded with crunchy KitKat pieces and finished with a rich chocolate drizzle.",
+    image: "https://i.ibb.co/QFYv4SdF/Whats-App-Image-2026-09-05-at-11-03-11-AM.jpg" 
+  },
+  { 
+    name: "Muffin Nutella", 
+    category: "Muffins & Desserts", 
+    price: "Rs 170",
+    badge: "Nutella Core",
+    description: "Indulgent chocolate muffin featuring a decadent, creamy Nutella center swirl.",
+    image: "https://i.ibb.co/rGxfZ4VD/Whats-App-Image-2026-09-05-at-11-11-17-AM.jpg" 
+  },
+  { 
+    name: "Muffin Honey", 
+    category: "Muffins & Desserts", 
+    price: "Rs 170",
+    badge: "Pure Honey Glaze",
+    description: "Soft vanilla muffin sweetened with wild organic honey and topped with a glossy, sweet honey glaze.",
+    image: "https://i.ibb.co/6pLr3bj/Whats-App-Image-2026-09-05-at-11-04-41-AM.jpg" 
+  },
+  { 
+    name: "Muffin Fudge", 
+    category: "Muffins & Desserts", 
+    price: "Rs 170",
+    description: "Chocolate muffin stuffed with premium dark fudge chunks and topped with warm hot-fudge drizzle.",
+    image: "https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?w=600&auto=format&fit=crop&q=80" 
+  },
+  { 
+    name: "Muffins Angry Bird", 
+    category: "Muffins & Desserts", 
+    price: "Rs 170",
+    badge: "Kids Special",
+    description: "Fun vanilla muffin with vibrant red coloring, loaded with sweet batter and adorned with fondant Angry Bird face.",
+    image: "https://images.unsplash.com/photo-1576618148400-f54bed99fcf1?w=600&auto=format&fit=crop&q=80" 
+  },
+  { 
+    name: "Red Velvet Cupcake", 
+    category: "Muffins & Desserts", 
+    price: "Rs 170",
+    badge: "Signature Cupcake",
+    description: "Rich red velvet cupcake with a secret cream cheese core, topped with a velvety cream cheese frosting swirl and sprinkles.",
+    image: "https://i.ibb.co/7t5YJ8G8/red-velvet-cupcake.webp" 
+  },
   { name: "Ras Malai", category: "Muffins & Desserts", image: "https://i.ibb.co/PpcVv1M/Whats-App-Image-2026-09-05-at-11-09-33-AM.jpg" },
   { name: "Pure Milk & Almond Drink (Bottle)", category: "Muffins & Desserts", image: "https://i.ibb.co/x86WYVC8/Whats-App-Image-2026-08-31-at-4-52-57-PM.jpg" },
   { name: "Premium Kulfi (Badam / Khoya)", category: "Muffins & Desserts", image: "https://i.ibb.co/svbhztPP/Whats-App-Image-2026-09-05-at-11-08-51-AM.jpg" },
