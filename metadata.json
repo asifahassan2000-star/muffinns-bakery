@@ -1,0 +1,6 @@
+{
+  "name": "Muffinns Sweets and Bakers",
+  "description": "Artisan bakery website for Muffinns Sweets and Bakers featuring fresh daily pastries, gourmet muffins, celebratory boxes, and interactive online pre-ordering.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
