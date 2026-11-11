@@ -14,8 +14,8 @@ interface RestaurantHeroProps {
 export default function RestaurantHero({
   title = "Elegance plated perfectly",
   image = "https://framerusercontent.com/images/BR8yCN9DGYK5v5AZrU502Cdrk.jpg",
-  logo = "https://framerusercontent.com/images/z3m44mfAz9qRUuLQx3Sp20PB8.svg",
-  badge = "https://framerusercontent.com/images/YvsutxO6W0bP0T3NMigCo5tinCA.svg",
+  logo = "/assets/aistudio/muffinns_cafe_grill_emblem_transparent.png",
+  badge = "/assets/aistudio/muffinns_cafe_grill_emblem_transparent.png",
   buttonText = "Book a table",
   buttonLink = "",
   style,
@@ -57,15 +57,14 @@ export default function RestaurantHero({
           position: "absolute",
           left: 30,
           top: 30,
-          padding: "20px 26px",
-          background: "#fff",
-          borderRadius: 10,
+          background: "transparent",
+          zIndex: 5,
         }}
       >
         <img
           src={logo}
-          alt="Shehran"
-          style={{ display: "block", width: 147, maxWidth: "25vw" }}
+          alt="MuffInns Café & Grill"
+          style={{ display: "block", width: 130, height: 130, objectFit: "contain", borderRadius: "50%", filter: "drop-shadow(0 10px 24px rgba(0,0,0,0.4))" }}
         />
       </div>
 
@@ -150,13 +149,16 @@ export default function RestaurantHero({
 
         <motion.img
           src={badge}
-          alt=""
+          alt="MuffInns Café & Grill Emblem"
           animate={reduced ? {} : { rotate: 360 }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
           style={{
             display: "block",
             width: 140,
             height: 140,
+            objectFit: "contain",
+            borderRadius: "50%",
+            filter: "drop-shadow(0 12px 28px rgba(0,0,0,0.4))",
             margin: "clamp(60px,12vw,173px) 0 0 auto",
           }}
         />

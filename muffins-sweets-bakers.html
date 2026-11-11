@@ -11,12 +11,12 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Instrument+Serif:ital@0;1&family=League+Gothic&family=Oswald:wght@400;500;600&display=swap');
     :root {
-      --cream: #F6EAD3;
-      --mustard: #D9A132;
-      --honey: #A8741F;
-      --crust: #5B3A1F;
-      --butter: #EFDDBA;
-      --line: rgba(168,116,31,.4);
+      --cream: #FAF4E8;
+      --mustard: #D4881A;
+      --honey: #A86518;
+      --crust: #55341A;
+      --butter: #F3E2C4;
+      --line: rgba(168,101,24,.32);
     }
     * { box-sizing: border-box; }
     html {
@@ -143,14 +143,15 @@
       animation: nav-in 1s 1s both;
       position: sticky;
       top: 0;
-      background: rgba(246, 234, 211, 0.96);
+      background: rgba(250, 244, 232, 0.96);
       backdrop-filter: blur(8px);
       z-index: 100;
     }
     .brand {
-      display: flex;
-      align-items: baseline;
+      display: inline-flex;
+      align-items: center;
       gap: 10px;
+      text-decoration: none;
     }
     .brand strong {
       font: 36px/1 "League Gothic";
@@ -160,6 +161,29 @@
     .brand em {
       font: 26px Caveat;
       color: var(--crust);
+    }
+    .brand img.sweets-brand-logo {
+      height: 46px;
+      width: auto;
+      max-width: 220px;
+      object-fit: contain;
+      display: block;
+      transition: transform 0.25s ease;
+    }
+    .brand:hover img.sweets-brand-logo {
+      transform: scale(1.03);
+    }
+    .footer .brand img.sweets-footer-logo {
+      height: 56px;
+      width: auto;
+      max-width: 250px;
+      object-fit: contain;
+      display: block;
+      margin-bottom: 14px;
+      transition: transform 0.25s ease;
+    }
+    .footer .brand:hover img.sweets-footer-logo {
+      transform: scale(1.03);
     }
     .nav-links {
       display: flex;
@@ -823,8 +847,8 @@
 </head>
 <body>
   <header class="nav">
-    <a class="brand" href="#home">
-      <strong>LAMINA</strong><em>bakehouse</em>
+    <a class="brand" href="#home" aria-label="MuffInns Sweets &amp; Bakers Home">
+      <img class="sweets-brand-logo" src="/assets/aistudio/muffinns_bakery_basket_dark.png" alt="MuffInns Sweets &amp; Bakers" height="46" />
     </a>
     <button class="menu-toggle" aria-expanded="false" aria-controls="main-links">Menu</button>
     <nav class="nav-links" id="main-links" aria-label="Main navigation">
@@ -848,7 +872,7 @@
           <span>Moments<br>worth saving.</span>
         </div>
         <div class="hero-stage">
-          <h1>CROISSANT</h1>
+          <h1>Indulgence</h1>
           <img class="hero-photo" src="/assets/aistudio/image_c08d8cd8.png" alt="Muffins Sweets &amp; Bakers Artisan Chocolate Muffin" loading="lazy">
           <span class="script hand-note">made fresh,<br>made with care</span>
           <span class="script crisp-note">Crisp<br>Golden Shell</span>
@@ -1265,10 +1289,10 @@
     <div class="wrap">
       <div class="footer-grid">
         <div>
-          <a class="brand" href="#home">
-            <strong>LAMINA</strong><em>bakehouse</em>
+          <a class="brand" href="#home" aria-label="MuffInns Sweets &amp; Bakers Home">
+            <img class="sweets-footer-logo" src="/assets/aistudio/muffinns_bakery_basket_white.png" alt="MuffInns Sweets &amp; Bakers" height="56" />
           </a>
-          <p>Small-batch breads and pastries, laminated by hand and baked before sunrise.</p>
+          <p>Small-batch artisan muffins, pastries, and breads, oven-fresh daily.</p>
         </div>
         <div>
           <span class="eyebrow">Navigate</span>
@@ -1297,11 +1321,11 @@
         </div>
       </div>
       <div class="footer-bottom eyebrow">
-        <span>© 2026 Lamina Bakehouse • Part of MUFFINNS</span>
+        <span>© 2026 MuffInns Sweets &amp; Bakers • Part of MUFFINNS</span>
         <div>
           <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
           <a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a>
-          <a href="mailto:hello@laminabakehouse.com">hello@laminabakehouse.com</a>
+          <a href="mailto:contact@muffinnssweets.com">contact@muffinnssweets.com</a>
         </div>
       </div>
     </div>

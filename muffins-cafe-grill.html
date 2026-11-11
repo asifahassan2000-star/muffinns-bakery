@@ -58,21 +58,28 @@
     .logo {
       position: absolute;
       left: calc(12% - 100px);
-      top: 60px;
-      width: 200px;
-      height: 140px;
-      border-radius: 10px;
-      background: white;
-      display: grid;
-      place-items: center;
-      box-shadow: 0 12px 36px rgba(0,0,0,0.08);
+      top: 50px;
+      width: auto;
+      height: auto;
+      border-radius: 50%;
+      background: transparent;
+      display: inline-block;
+      box-shadow: none;
       z-index: 5;
       text-decoration: none;
+      cursor: pointer;
     }
     .logo img {
-      width: 147px;
-      height: 80px;
+      width: 135px;
+      height: 135px;
       object-fit: contain;
+      display: block;
+      border-radius: 50%;
+      filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.42));
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .logo:hover img {
+      transform: scale(1.05);
     }
     .hero-content {
       max-width: 1300px;
@@ -136,6 +143,9 @@
       margin: 173px 0 0 auto;
       width: 140px;
       height: 140px;
+      object-fit: contain;
+      border-radius: 50%;
+      filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.4));
       animation: spin 20s linear infinite;
     }
 
@@ -536,8 +546,8 @@
       <div class="hero-photo">
         <img src="https://framerusercontent.com/assets/BR8yCN9DGYK5v5AZrU502Cdrk.jpg" alt="Restaurant table with wine glasses and dessert" fetchpriority="high">
       </div>
-      <a class="logo" href="#home" aria-label="Shehran home">
-        <img src="https://framerusercontent.com/assets/z3m44mfAz9qRUuLQx3Sp20PB8.svg" alt="Shehran" loading="lazy">
+      <a class="logo" href="#home" aria-label="MuffInns Café &amp; Grill Home">
+        <img src="/assets/aistudio/muffinns_cafe_grill_emblem_transparent.png" alt="MuffInns Café &amp; Grill" loading="lazy">
       </a>
       <div class="social-rail">
         <span>Follow us:</span>
@@ -557,7 +567,7 @@
           </span>
         </h1>
         <a class="button" href="#reservation">Book a table</a>
-        <img class="badge" src="https://framerusercontent.com/assets/YvsutxO6W0bP0T3NMigCo5tinCA.svg" alt="" loading="lazy">
+        <img class="badge" src="/assets/aistudio/muffinns_cafe_grill_emblem_transparent.png" alt="MuffInns Café &amp; Grill Emblem" loading="lazy">
       </div>
     </section>
 
@@ -761,7 +771,7 @@
         <div class="reservation-grid">
           <div class="reservation-photo">
             <img src="https://framerusercontent.com/assets/ToFiCrAyJYqHdYwKbRBK8ERo.png" alt="Reserved table at Shehran" loading="lazy">
-            <img class="badge" src="https://framerusercontent.com/assets/8QAvzhEY0l2w5UKNqszGqUxZsY.svg" alt="" loading="lazy">
+            <img class="badge" src="/assets/aistudio/muffinns_cafe_grill_emblem_transparent.png" alt="MuffInns Café &amp; Grill Emblem" loading="lazy">
           </div>
           <form class="booking" id="booking-form">
             <div class="contact-bar">
