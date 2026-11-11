@@ -254,5 +254,66 @@ export default function App() {
     };
   }, []);
 
+  // Interactive cursor parallax and 3D movement for Papa's Kitchen Standing Mascot Rooster before footer
+  useEffect(() => {
+    let rafId: number | null = null;
+    let targetX = 0;
+    let targetY = 0;
+    let targetRotY = 0;
+    let targetRotX = 0;
+    let currX = 0;
+    let currY = 0;
+    let currRotY = 0;
+    let currRotX = 0;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const mascot = document.getElementById('papas-standing-mascot') as HTMLElement | null;
+      if (!mascot) return;
+      const stage = mascot.closest('.papas-mascot-section-stage') as HTMLElement | null;
+      if (!stage) return;
+
+      const rect = stage.getBoundingClientRect();
+      if (rect.bottom < -100 || rect.top > window.innerHeight + 100) return;
+
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height * 0.4;
+      const dx = (e.clientX - centerX) / (window.innerWidth * 0.5);
+      const dy = (e.clientY - centerY) / (window.innerHeight * 0.5);
+
+      const clampX = Math.max(-1, Math.min(1, dx));
+      const clampY = Math.max(-1, Math.min(1, dy));
+
+      targetRotY = clampX * 10;
+      targetRotX = clampY * -6;
+      targetX = clampX * 12;
+      targetY = clampY * 6;
+    };
+
+    const updateLoop = () => {
+      const mascot = document.getElementById('papas-standing-mascot') as HTMLElement | null;
+      const shadow = document.getElementById('papas-mascot-shadow') as HTMLElement | null;
+      if (mascot) {
+        currX += (targetX - currX) * 0.1;
+        currY += (targetY - currY) * 0.1;
+        currRotY += (targetRotY - currRotY) * 0.1;
+        currRotX += (targetRotX - currRotX) * 0.1;
+
+        mascot.style.transform = `perspective(1000px) translate3d(${currX.toFixed(2)}px, ${currY.toFixed(2)}px, 15px) rotateX(${currRotX.toFixed(2)}deg) rotateY(${currRotY.toFixed(2)}deg)`;
+        if (shadow) {
+          shadow.style.transform = `translate3d(${(-currX * 0.4).toFixed(2)}px, 0, 0) scale(${1 - Math.abs(currY) * 0.02})`;
+        }
+      }
+      rafId = requestAnimationFrame(updateLoop);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    rafId = requestAnimationFrame(updateLoop);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, []);
+
   return null;
 }
