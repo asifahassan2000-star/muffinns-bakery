@@ -3,42 +3,51 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from 'react';
-import { MenuPage } from './components/MenuPage';
+import React, { useEffect } from 'react';
 
 export default function App() {
-  const [menuPageOpen, setMenuPageOpen] = useState(false);
-
-  // Check URL hash on load / change
-  useEffect(() => {
-    const checkHash = () => {
-      if (window.location.hash === '#menu-page' || window.location.hash === '#full-menu') {
-        setMenuPageOpen(true);
-      }
-    };
-    checkHash();
-    window.addEventListener('hashchange', checkHash);
-    return () => window.removeEventListener('hashchange', checkHash);
-  }, []);
-
-  // Global click interception
+  // Global click interception and interactions
   useEffect(() => {
     const handleGlobalClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       if (!target) return;
 
-      // Menu page triggers
-      const menuPageTrigger = target.closest('[data-open-menu-page], a[href="#menu-page"], a[href="#full-menu"]');
-      if (menuPageTrigger) {
-        e.preventDefault();
-        setMenuPageOpen(true);
-        return;
-      }
-
       // Smooth scroll navigation
       const navLink = target.closest('a[href^="#"]');
       if (navLink) {
         const hash = (navLink as HTMLAnchorElement).getAttribute('href');
+
+        // Check if inside muffins-sweets-bakers page
+        const insideSweetsPage = target.closest('#muffins-sweets-bakers-page');
+        if (insideSweetsPage) {
+          // Let bakery internal router handle its own hash and buttons
+          return;
+        }
+
+        if (hash === '#muffins-cafe-grill' || (navLink as HTMLAnchorElement).getAttribute('onclick')?.includes('openCafeGrillView')) {
+          e.preventDefault();
+          (window as any).openCafeGrillView?.(e);
+          // Close mobile menu if open
+          const navMenu = document.querySelector('.navbar_menu, .w-nav-menu');
+          if (navMenu) {
+            navMenu.classList.remove('is-opened');
+            (navMenu as HTMLElement).style.display = '';
+          }
+          return;
+        }
+
+        if (hash === '#muffins-sweets-bakers' || (navLink as HTMLAnchorElement).getAttribute('onclick')?.includes('openSweetsBakersView')) {
+          e.preventDefault();
+          (window as any).openSweetsBakersView?.(e);
+          // Close mobile menu if open
+          const navMenu = document.querySelector('.navbar_menu, .w-nav-menu');
+          if (navMenu) {
+            navMenu.classList.remove('is-opened');
+            (navMenu as HTMLElement).style.display = '';
+          }
+          return;
+        }
+
         if (hash && hash !== '#') {
           const targetEl = document.querySelector(hash);
           if (targetEl) {
@@ -50,6 +59,23 @@ export default function App() {
               navMenu.classList.remove('is-opened');
               (navMenu as HTMLElement).style.display = '';
             }
+          }
+        }
+      }
+
+      // Mobile dropdown accordion toggle
+      const dropdownToggle = target.closest('.navbar_dropdown-toggle');
+      if (dropdownToggle && window.innerWidth < 992) {
+        const dropdownParent = dropdownToggle.closest('.navbar_dropdown-link');
+        const dropdownContent = dropdownParent?.querySelector('.navbar_dropdown-content') as HTMLElement | null;
+        if (dropdownContent) {
+          const isCurrentlyOpen = dropdownContent.style.display === 'flex' || dropdownContent.classList.contains('w--open');
+          if (isCurrentlyOpen) {
+            dropdownContent.classList.remove('w--open');
+            dropdownContent.style.display = 'none';
+          } else {
+            dropdownContent.classList.add('w--open');
+            dropdownContent.style.display = 'flex';
           }
         }
       }
@@ -152,13 +178,5 @@ export default function App() {
     };
   }, []);
 
-  return (
-    <>
-      {/* DEDICATED MENU PAGE OVERLAY */}
-      <MenuPage
-        isOpen={menuPageOpen}
-        onClose={() => setMenuPageOpen(false)}
-      />
-    </>
-  );
+  return null;
 }

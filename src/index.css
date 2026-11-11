@@ -48,3 +48,58 @@ body {
 .animate-wave-2 { animation: soundWave 0.9s ease-in-out infinite 0.25s; }
 .animate-wave-3 { animation: soundWave 0.65s ease-in-out infinite 0.35s; }
 .animate-wave-4 { animation: soundWave 1.05s ease-in-out infinite 0.15s; }
+
+/* Refined hover animations for solutions-card */
+.solutions-card {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.solutions-card:hover {
+  transform: translateY(-5px);
+}
+
+.solutions-card .solutions-card_img {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.solutions-card:hover .solutions-card_img {
+  transform: scale(1.035);
+}
+
+.solutions-card .solutions-card_top-icon_arrow {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.solutions-card:hover .solutions-card_top-icon_arrow {
+  transform: translate3d(3px, -3px, 0);
+}
+
+/* Navbar dropdown hover behavior on desktop */
+@media (min-width: 992px) {
+  .navbar_dropdown-link {
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .navbar_dropdown-link:hover > .navbar_dropdown-content,
+  .navbar_dropdown-link:focus-within > .navbar_dropdown-content {
+    display: flex !important;
+    position: absolute !important;
+    inset: 0% auto auto 0% !important;
+    background-color: transparent !important;
+    padding: 0 !important;
+    z-index: 1000 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  .navbar_dropdown-link .navbar_menu-link_icon {
+    transition: transform 0.25s ease;
+  }
+
+  .navbar_dropdown-link:hover .navbar_menu-link_icon {
+    transform: rotate(180deg);
+  }
+}
+
