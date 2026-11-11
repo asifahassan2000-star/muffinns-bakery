@@ -17,10 +17,11 @@ export default function App() {
       if (navLink) {
         const hash = (navLink as HTMLAnchorElement).getAttribute('href');
 
-        // Check if inside muffins-sweets-bakers page
+        // Check if inside muffins-sweets-bakers page or papas-kitchen page
         const insideSweetsPage = target.closest('#muffins-sweets-bakers-page');
-        if (insideSweetsPage) {
-          // Let bakery internal router handle its own hash and buttons
+        const insidePapasKitchen = target.closest('#papas-kitchen-page');
+        if (insideSweetsPage || insidePapasKitchen) {
+          // Let internal brand router handle its own hash and buttons
           return;
         }
 
@@ -39,6 +40,18 @@ export default function App() {
         if (hash === '#muffins-sweets-bakers' || (navLink as HTMLAnchorElement).getAttribute('onclick')?.includes('openSweetsBakersView')) {
           e.preventDefault();
           (window as any).openSweetsBakersView?.(e);
+          // Close mobile menu if open
+          const navMenu = document.querySelector('.navbar_menu, .w-nav-menu');
+          if (navMenu) {
+            navMenu.classList.remove('is-opened');
+            (navMenu as HTMLElement).style.display = '';
+          }
+          return;
+        }
+
+        if (hash === '#papas-kitchen' || hash?.startsWith('#papas-kitchen') || (navLink as HTMLAnchorElement).getAttribute('onclick')?.includes('openPapasKitchenView')) {
+          e.preventDefault();
+          (window as any).openPapasKitchenView?.(e);
           // Close mobile menu if open
           const navMenu = document.querySelector('.navbar_menu, .w-nav-menu');
           if (navMenu) {
@@ -175,6 +188,69 @@ export default function App() {
       mapBlock.removeEventListener('mouseenter', handleMouseEnter);
       mapBlock.removeEventListener('mousemove', handleMouseMove);
       mapBlock.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
+
+  // Interactive 3D movement and mouse parallax on Muffins Sweets & Bakers hero muffin
+  useEffect(() => {
+    let isHovering = false;
+    let rafId: number | null = null;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const heroStage = document.querySelector('#muffins-sweets-bakers-page .hero-stage') as HTMLElement | null;
+      const heroPhoto = document.querySelector('#muffins-sweets-bakers-page .hero-photo') as HTMLElement | null;
+      if (!heroStage || !heroPhoto || !isHovering) return;
+
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        const rect = heroStage.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -14;
+        const rotateY = ((x - centerX) / centerX) * 14;
+        heroPhoto.style.transform = `translate3d(-50%, -10px, 35px) perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.04, 1.04, 1.04)`;
+      });
+    };
+
+    const handleMouseEnter = () => {
+      const heroPhoto = document.querySelector('#muffins-sweets-bakers-page .hero-photo') as HTMLElement | null;
+      if (heroPhoto) {
+        isHovering = true;
+        heroPhoto.style.animationPlayState = 'paused';
+        heroPhoto.style.transition = 'transform 0.12s cubic-bezier(0.2, 0.8, 0.4, 1), filter 0.3s ease';
+      }
+    };
+
+    const handleMouseLeave = () => {
+      const heroPhoto = document.querySelector('#muffins-sweets-bakers-page .hero-photo') as HTMLElement | null;
+      isHovering = false;
+      if (rafId) cancelAnimationFrame(rafId);
+      if (heroPhoto) {
+        heroPhoto.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease';
+        heroPhoto.style.transform = '';
+        setTimeout(() => {
+          if (!isHovering && heroPhoto) {
+            heroPhoto.style.animationPlayState = 'running';
+          }
+        }, 600);
+      }
+    };
+
+    const intervalId = setInterval(() => {
+      const heroStage = document.querySelector('#muffins-sweets-bakers-page .hero-stage');
+      if (heroStage && !(heroStage as any).__has3dListener) {
+        (heroStage as any).__has3dListener = true;
+        heroStage.addEventListener('mouseenter', handleMouseEnter as EventListener);
+        heroStage.addEventListener('mousemove', handleMouseMove as EventListener);
+        heroStage.addEventListener('mouseleave', handleMouseLeave as EventListener);
+      }
+    }, 500);
+
+    return () => {
+      clearInterval(intervalId);
+      if (rafId) cancelAnimationFrame(rafId);
     };
   }, []);
 

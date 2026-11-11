@@ -1,0 +1,1266 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Papa's Kitchen — Craveable Stacks. Crispy Snacks. | Crave Craft</title>
+  <meta name="description" content="Explore Papa's Kitchen & Crave Craft: freshly griddled Angus smashburgers, double-dredged crisp tenders, loaded seasoned waffle fries, and thick hand-spun craft shakes.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:wght@500;700;900&family=Caveat:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #fbf7ee;
+      --ink: #121212;
+      --red: #ff3b19;
+      --yellow: #f59e0b;
+      --white: #fff;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 130px; }
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--ink);
+      font: 16px/1.4 'Outfit', sans-serif;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+    button, a, input { -webkit-tap-highlight-color: transparent; }
+    a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid var(--yellow); outline-offset: 5px; }
+    h1, h2, h3, p { margin: 0; }
+    h2 { font-size: 48px; line-height: 1.15; letter-spacing: -.04em; font-weight: 800; }
+    h3 { font-size: 20px; letter-spacing: -.04em; font-weight: 900; }
+    p { color: #121212b3; }
+    .container { width: 100%; max-width: 1440px; margin: auto; padding: 0 40px; }
+    section { padding: 96px 0; }
+
+    /* Header & Ticker */
+    .site-header { position: fixed; top: 0; left: 0; width: 100%; z-index: 50; }
+    .ticker { height: 32px; background: var(--yellow); border-bottom: 2px solid var(--ink); overflow: hidden; display: flex; align-items: center; }
+    .ticker-track { display: flex; width: max-content; animation: papasMarquee 40s linear infinite; }
+    .ticker-group { display: flex; gap: 48px; align-items: center; padding-right: 48px; white-space: nowrap; font: 700 12px/1.4 'Inter', sans-serif; }
+    
+    .nav { background: var(--cream); border-bottom: 4px solid var(--ink); }
+    .nav-inner { height: 80px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { font-size: 32px; font-weight: 900; letter-spacing: -.04em; display: flex; align-items: center; gap: 12px; white-space: nowrap; }
+    .brand b { color: var(--red); }
+    .brand-mark { height: 40px; width: 36px; background: var(--red); border: 2px solid var(--ink); border-radius: 10px; box-shadow: 2px 2px var(--ink); transform: rotate(-3deg); }
+    .nav-links { display: flex; gap: 32px; padding: 12px 24px; background: white; border: 2px solid var(--ink); border-radius: 99px; box-shadow: 3px 3px var(--ink); font-size: 14px; font-weight: 700; }
+    .nav-links a { cursor: pointer; transition: color 0.15s ease; }
+    .nav-links a:hover, .nav-links a[aria-current="page"] { text-decoration: underline; text-underline-offset: 4px; color: var(--red); }
+    
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 16px 32px; border: 2px solid var(--ink); border-radius: 12px;
+      background: white; box-shadow: 6px 6px var(--ink); font-weight: 800; font-size: 18px;
+      cursor: pointer; transition: background .4s cubic-bezier(.44,0,.56,1), box-shadow .2s, translate .2s;
+    }
+    .btn:hover { background: #1212121a; }
+    .btn:active { translate: 3px 3px; box-shadow: 3px 3px var(--ink); }
+    .btn.red { background: var(--red); color: white; }
+    .btn.red:hover { background: #ff6247; }
+    .btn.yellow { background: var(--yellow); color: var(--ink); }
+    .btn.yellow:hover { background: #f7b13c; }
+    .btn.dark { background: var(--ink); color: white; }
+    .nav .btn { border-radius: 99px; font-size: 16px; padding: 10px 18px; box-shadow: 4px 4px var(--ink); }
+    .arrow { width: 18px; height: 18px; display: inline-block; }
+    .menu-toggle { display: none; background: white; border: 2px solid var(--ink); border-radius: 8px; padding: 10px; cursor: pointer; }
+    .hamburger { display: block; width: 22px; height: 16px; border-top: 2px solid; border-bottom: 2px solid; position: relative; }
+    .hamburger:after { content: ""; position: absolute; left: 0; right: 0; top: 5px; border-top: 2px solid; }
+
+    /* Hero */
+    .hero { min-height: 100vh; padding: 170px 0 90px; display: flex; align-items: center; overflow: hidden; }
+    .hero-grid { display: grid; grid-template-columns: 1.75fr 1fr; gap: 40px; align-items: end; }
+    .hero-copy { display: flex; flex-direction: column; gap: 32px; }
+    .badges { display: flex; flex-wrap: wrap; gap: 16px; }
+    .badge { display: flex; gap: 8px; align-items: center; border: 2px solid var(--ink); border-radius: 12px; padding: 8px 16px; background: white; box-shadow: 3px 3px var(--ink); white-space: nowrap; font: 700 10px/1.4 'Inter', sans-serif; }
+    .badge strong { font-size: 14px; font-weight: 900; }
+    .badge:nth-child(2) { background: var(--yellow); }
+    h1 { font-size: 72px; line-height: 1.1; letter-spacing: -.045em; font-weight: 900; }
+    .headline-row { display: flex; gap: 22px; align-items: center; margin-bottom: 12px; white-space: nowrap; }
+    .headline-row em { font-style: italic; padding: 0 10px; border: 2px solid var(--ink); box-shadow: 4px 4px var(--ink); background: var(--red); color: white; transform: rotate(-1deg); }
+    .headline-row:last-child em { background: var(--yellow); color: var(--ink); transform: rotate(1deg); }
+    .hero-copy > p { font-size: 18px; font-weight: 500; }
+    .actions { display: flex; gap: 40px; flex-wrap: wrap; }
+    .collage { position: relative; transform: rotate(2deg); padding: 16px; background: white; box-shadow: 6px 6px var(--ink); margin-bottom: 0; }
+    .hero-photo { overflow: hidden; border: 2px solid var(--ink); aspect-ratio: 1; }
+    .hero-photo img { display: block; width: 100%; height: 100%; object-fit: cover; animation: burgerZoom 1.5s cubic-bezier(.16,1,.3,1) both; }
+    .tape { position: absolute; width: 112px; height: 24px; background: #f59e0be6; top: -12px; left: 80px; transform: rotate(-2deg); box-shadow: 0 1px 3px #0003; }
+    .fresh-note { position: absolute; right: 32px; top: 48px; transform: rotate(6deg); background: #ffffffe6; padding: 2px 8px; border: 1px solid; font: 700 24px/32px 'Caveat', cursive; color: var(--red); }
+    .steam-note { position: absolute; top: -24px; right: -40px; transform: rotate(12deg); border: 2px solid; padding: 6px 16px; border-radius: 99px; background: var(--red); box-shadow: 4px 4px var(--ink); font: 900 12px 'Inter', sans-serif; color: white; }
+    .report { position: absolute; bottom: -32px; left: -48px; transform: rotate(-6deg); background: var(--yellow); border-radius: 12px; padding: 12px; box-shadow: 4px 4px var(--ink); width: 172px; font-size: 11px; font-weight: 700; }
+    .report strong { display: block; font-size: 12px; font-weight: 900; margin-bottom: 4px; }
+    .mini-photo { position: absolute; bottom: -40px; right: -32px; width: 176px; transform: rotate(-8deg); padding: 8px; border: 2px solid; background: white; box-shadow: 4px 4px var(--ink); margin: 0; }
+    .mini-photo img { width: 100%; height: 96px; object-fit: cover; border: 1px solid; display: block; }
+    .mini-photo figcaption { font: 700 12px 'Caveat', cursive; text-align: center; padding-top: 4px; }
+
+    /* Sections & Cards */
+    .section-heading { margin-bottom: 48px; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
+    .section-heading.center { align-items: center; text-align: center; margin-left: auto; margin-right: auto; max-width: 700px; }
+    .section-heading p { font-weight: 500; max-width: 520px; margin-top: -8px; }
+    .label { display: inline-block; border: 2px solid var(--ink); border-radius: 4px; background: var(--yellow); box-shadow: 3px 3px var(--ink); padding: 4px 12px; font: 900 12px/1.4 'Inter', sans-serif; }
+    .label.red { background: var(--red); color: white; }
+    .label.white { background: white; }
+    .food-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px 48px; }
+    .food-card { border: 2px solid; background: white; border-radius: 16px; box-shadow: 4px 4px var(--ink); overflow: hidden; display: flex; flex-direction: column; }
+    .food-photo { position: relative; aspect-ratio: 1.11; border-bottom: 2px solid; overflow: hidden; }
+    .food-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
+    .food-card:hover .food-photo img { transform: scale(1.04); }
+    .tag { position: absolute; top: 18px; left: 18px; border: 2px solid var(--ink); border-radius: 4px; box-shadow: 3px 3px var(--ink); padding: 1px 6px; font-size: 12px; font-weight: 900; }
+    .tag.red { background: var(--red); color: white; }
+    .tag.yellow { background: var(--yellow); }
+    .tag.white { background: white; }
+    .food-body { padding: 16px; display: flex; flex-direction: column; gap: 24px; flex: 1; }
+    .food-heading { display: flex; align-items: start; justify-content: space-between; gap: 12px; }
+    .price { padding: 0 6px; background: var(--red); color: white; border: 2px solid; border-radius: 4px; box-shadow: 3px 3px var(--ink); font-size: 18px; white-space: nowrap; }
+    .food-body p { font-size: 12px; }
+
+    /* Combos */
+    .combo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .coupon { padding: 32px; border: 2px solid var(--ink); border-radius: 16px; box-shadow: 6px 6px var(--ink); display: flex; flex-direction: column; gap: 24px; background: var(--yellow); }
+    .coupon.dark { background: var(--ink); color: white; }
+    .coupon-top { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; font-weight: 900; }
+    .coupon-top span { padding: 3px 10px; background: var(--ink); color: white; border-radius: 3px; }
+    .coupon.dark .coupon-top span { background: var(--red); }
+    .coupon h3 { font-size: 36px; line-height: 1.15; max-width: 440px; }
+    .coupon p { color: inherit; font-size: 14px; font-weight: 600; max-width: 380px; }
+    .coupon-bottom { display: flex; justify-content: space-between; align-items: end; gap: 16px; border-top: 2px dashed #12121266; padding-top: 24px; margin-top: auto; }
+    .dark .coupon-bottom { border-color: #ffffff55; }
+    .deal-price { font-weight: 900; font-size: 32px; }
+    .dark .deal-price { color: var(--yellow); }
+    del { font-size: 14px; font-weight: 400; margin-left: 8px; }
+    .coupon small { display: block; font-size: 12px; }
+    .coupon .btn { font-size: 16px; padding: 12px 24px; box-shadow: none; white-space: nowrap; }
+
+    .perks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 40px; }
+    .perk { display: flex; gap: 16px; padding: 20px; border: 2px solid; border-radius: 16px; background: white; box-shadow: 4px 4px var(--ink); }
+    .perk strong { display: block; font-size: 18px; }
+    .perk p { font-size: 12px; margin-top: 4px; }
+
+    /* Reviews */
+    .review-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .review { border: 2px solid var(--ink); border-radius: 16px; background: white; box-shadow: 6px 6px var(--ink); padding: 24px; transform: rotate(-1deg); }
+    .review:nth-child(2) { transform: rotate(1deg); }
+    .stars { color: var(--yellow); letter-spacing: 2px; font-size: 20px; }
+    .review blockquote { margin: 16px 0 24px; font-weight: 700; }
+    .reviewer { border-top: 2px solid; padding-top: 16px; display: flex; gap: 12px; align-items: center; }
+    .avatar { display: grid; place-items: center; min-width: 40px; height: 40px; border: 2px solid; border-radius: 100%; background: var(--red); color: white; font-size: 18px; font-weight: 900; }
+    .a1 { background: var(--yellow); color: var(--ink); }
+    .a2 { background: var(--ink); color: white; }
+    .reviewer small { display: block; font: 700 10px 'Inter', sans-serif; }
+
+    /* Locker & Club */
+    .locker { background: var(--red); padding: 80px 0; }
+    .locker-box { padding: 48px; background: white; border: 4px solid; border-radius: 24px; box-shadow: 6px 6px var(--ink); display: flex; gap: 32px; align-items: end; justify-content: space-between; }
+    .locker-copy { display: flex; flex-direction: column; gap: 12px; }
+    .locker h2 { font-size: 72px; font-weight: 900; }
+    .locker p { max-width: 615px; font-size: 18px; font-weight: 700; }
+    .locker .actions { flex-shrink: 0; gap: 32px; }
+    .club { padding: 64px 0; }
+    .ticket { max-width: 840px; margin: auto; padding: 48px; border: 2px solid; border-radius: 24px; background: white; box-shadow: 6px 6px var(--ink); transform: rotate(-1deg); display: flex; flex-direction: column; gap: 24px; }
+    .ticket .label { align-self: flex-start; border-radius: 0; box-shadow: none; }
+    .ticket h2 { font-weight: 900; }
+    .ticket p { font-size: 18px; font-weight: 700; }
+    .signup { border-top: 2px dashed var(--ink); padding-top: 32px; display: flex; gap: 16px; }
+    .signup input { min-width: 0; flex: 1; padding: 15px; background: var(--cream); border: 2px solid; border-radius: 12px; }
+    .signup .btn { background: var(--ink); color: white; font-size: 16px; box-shadow: 3px 3px var(--ink); }
+    .fine-print { display: flex; justify-content: space-between; gap: 16px; font-size: 11px; font-weight: 700; }
+    .form-status { font-size: 14px !important; min-height: 0; }
+
+    /* Footer */
+    .footer { background: var(--ink); color: white; padding: 64px 0 32px; }
+    .footer-grid { display: grid; grid-template-columns: 1.2fr .7fr 1fr; gap: 72px; }
+    .footer h2 { font-size: 32px; }
+    .footer p { color: #ffffffb3; margin: 16px 0 24px; max-width: 400px; }
+    .footer h4 { margin: 0 0 24px; color: #ffffff99; }
+    .footer-links { display: flex; flex-direction: column; gap: 12px; font-weight: 700; }
+    .footer a:hover { color: var(--yellow); }
+    .footer-signup { display: flex; gap: 8px; }
+    .footer-signup input { min-width: 0; flex: 1; padding: 12px; background: #262626; border: 0; color: white; border-radius: 8px; }
+    .footer-signup button { background: var(--yellow); border: 0; border-radius: 8px; padding: 12px 16px; cursor: pointer; font-weight: 800; }
+    .footer label { display: block; color: var(--yellow); font-size: 12px; font-weight: 800; margin-bottom: 8px; }
+    .location { border: 2px solid #ffffff33; border-radius: 16px; padding: 16px; background: #ffffff0d; display: flex; flex-direction: column; gap: 10px; }
+    .location small, .location a { color: var(--yellow); }
+    .location p { margin: 0; font-size: 12px; }
+    .footer-bottom { border-top: 1px solid #ffffff55; display: flex; justify-content: space-between; gap: 24px; margin-top: 48px; padding-top: 24px; font-size: 12px; }
+    .legal { display: flex; gap: 24px; }
+    .connect { margin-top: 24px; font-size: 12px; color: #ffffffb3; }
+
+    /* MENU PAGE SPECIFIC STYLES */
+    .menu-hero { min-height: 80vh; padding: 200px 0 100px; display: flex; align-items: center; justify-content: center; border-bottom: 2px solid var(--ink); overflow: hidden; }
+    .menu-hero-inner { display: flex; align-items: center; flex-direction: column; gap: 24px; text-align: center; }
+    .menu-hero-pill { border: 2px solid var(--ink); border-radius: 8px; background: var(--yellow); box-shadow: 4px 4px var(--ink); padding: 4px 16px; font-size: 16px; font-weight: 700; }
+    .menu-hero h1 { font-size: 72px; line-height: 1.1; font-weight: 900; letter-spacing: -.04em; }
+    .menu-headline { display: block; }
+    .menu-title-sticker { display: inline-block; background: var(--red); color: white; border: 2px solid var(--ink); border-radius: 4px; box-shadow: 4px 4px var(--ink); padding: 0 12px; transform: rotate(-1deg); margin-top: 8px; }
+    .menu-hero p { font-size: 18px; font-weight: 700; max-width: 660px; }
+    .menu-category { padding: 48px 0; overflow: hidden; }
+    .menu-category:last-child { padding-bottom: 96px; }
+    .category-heading { display: flex; justify-content: space-between; align-items: end; gap: 40px; border-bottom: 2px solid var(--ink); padding-bottom: 16px; margin-bottom: 32px; }
+    .category-title { display: flex; flex-direction: column; align-items: start; gap: 12px; }
+    .category-title .label { padding: 3px 12px; }
+    .category-title-row { display: flex; align-items: center; gap: 24px; }
+    .category-title h2 { font-size: 48px; font-weight: 900; line-height: 1.2; letter-spacing: -.04em; }
+    .crave-count { background: var(--yellow); border: 2px solid var(--ink); border-radius: 3px; padding: 0 6px; font: 900 12px/1.4 'Inter', sans-serif; white-space: nowrap; }
+    .category-description { font: 600 14px/1.4 'Inter', sans-serif; max-width: 360px; flex-shrink: 0; }
+    .food-meta { display: flex; justify-content: space-between; align-items: center; gap: 16px; border-top: 2px dashed #12121233; padding-top: 8px; margin-top: auto; font-size: 12px; }
+    .food-meta strong { text-align: right; font-weight: 700; }
+    .menu-category .food-body > p { min-height: 42px; }
+
+    /* ============================================================== */
+    /* ENHANCED SPRING MOTION & STAGGERED SCROLL REVEAL ENGINE        */
+    /* ============================================================== */
+    @keyframes papasMarquee {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-50%, 0, 0); }
+    }
+    @keyframes burgerZoom {
+      0% {
+        transform: scale(1.4);
+        filter: blur(2px);
+      }
+      100% {
+        transform: scale(1);
+        filter: blur(0px);
+      }
+    }
+    
+    .ticker-track {
+      display: flex !important;
+      width: max-content !important;
+      animation: papasMarquee 26s linear infinite !important;
+      will-change: transform;
+    }
+    .ticker-track:hover {
+      animation-play-state: paused;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translate3d(var(--from-x, 0px), var(--from-y, 80px), 0) scale3d(var(--from-scale, 1), var(--from-scale, 1), 1);
+      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 1.05s cubic-bezier(0.34, 1.25, 0.64, 1);
+      transition-delay: var(--delay, 0s);
+      will-change: opacity, transform;
+    }
+    .reveal.is-visible {
+      opacity: 1 !important;
+      transform: translate3d(0, 0, 0) scale3d(1, 1, 1) !important;
+    }
+
+    .reveal[data-from-x] {
+      transform: translate3d(var(--from-x, 80px), var(--from-y, 0px), 0) scale3d(var(--from-scale, 1), var(--from-scale, 1), 1);
+    }
+    .reveal[data-from-x].is-visible {
+      transform: translate3d(0, 0, 0) scale3d(1, 1, 1) !important;
+    }
+
+    .hero-photo img.zoom-in {
+      animation: burgerZoom 1.4s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+    }
+
+    .btn {
+      transition: transform 0.25s cubic-bezier(0.34, 1.45, 0.64, 1),
+                  box-shadow 0.25s cubic-bezier(0.34, 1.45, 0.64, 1),
+                  background 0.3s ease,
+                  color 0.3s ease;
+    }
+    .btn:hover {
+      transform: translate3d(-3px, -3px, 0);
+      box-shadow: 9px 9px #121212;
+    }
+    .btn:active {
+      transform: translate3d(3px, 3px, 0);
+      box-shadow: 3px 3px #121212;
+    }
+
+    .food-card {
+      transition: transform 0.35s cubic-bezier(0.34, 1.25, 0.64, 1), box-shadow 0.35s ease;
+    }
+    .food-card:hover {
+      transform: translate3d(0, -6px, 0);
+      box-shadow: 8px 8px #121212;
+    }
+
+    .coupon {
+      transition: transform 0.35s cubic-bezier(0.34, 1.25, 0.64, 1), box-shadow 0.35s ease;
+    }
+    .coupon:hover {
+      transform: translate3d(-2px, -4px, 0);
+      box-shadow: 9px 9px #121212;
+    }
+
+    .review {
+      transition: transform 0.35s cubic-bezier(0.34, 1.25, 0.64, 1), box-shadow 0.35s ease;
+    }
+    .review:hover {
+      transform: rotate(0deg) scale(1.025);
+      box-shadow: 8px 8px #121212;
+    }
+
+    /* Floating Portal Back Button */
+    .papas-back-btn {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      z-index: 9999;
+      background: var(--ink);
+      color: #fff !important;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 12px 20px;
+      border-radius: 99px;
+      border: 2px solid var(--ink);
+      box-shadow: 4px 4px 0 var(--ink);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .papas-back-btn:hover {
+      background: var(--yellow);
+      color: var(--ink) !important;
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--ink);
+    }
+
+    /* Media Queries */
+    @media (max-width: 1199px) {
+      .container { padding: 0 24px; }
+      .nav-inner { height: 70px; }
+      .brand { font-size: 26px; }
+      .nav .btn { display: none; }
+      .menu-toggle { display: block; }
+      .nav-links {
+        position: absolute; top: 102px; left: 0; width: 100%; border-radius: 0;
+        box-shadow: 0 4px var(--ink); border: 0; display: flex; flex-direction: column;
+        gap: 0; padding: 0 24px; max-height: 0; overflow: hidden;
+        transition: max-height .5s cubic-bezier(.16,1,.3,1), padding .5s;
+      }
+      .nav.open .nav-links { max-height: 360px; padding: 16px 24px; }
+      .nav-links a { padding: 12px 0; }
+      .hero { padding: 160px 0 100px; min-height: auto; }
+      .hero-grid { grid-template-columns: 1fr; gap: 80px; }
+      .collage { width: min(480px, 85%); justify-self: center; }
+      h1 { font-size: 64px; }
+      .food-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+      .combo-grid { gap: 24px; }
+      .coupon { padding: 24px; }
+      .coupon-bottom { align-items: start; flex-direction: column; }
+      .perks { gap: 24px; }
+      .review-grid { gap: 24px; }
+      .locker-box { flex-direction: column; align-items: start; }
+      .locker h2 { font-size: 56px; }
+      .footer-grid { gap: 32px; }
+      .menu-hero { min-height: 650px; padding: 180px 0 80px; }
+      .menu-hero h1 { font-size: 60px; }
+      .category-heading { align-items: start; flex-direction: column; gap: 16px; }
+      .category-description { max-width: 100%; }
+      .category-title h2 { font-size: 40px; }
+    }
+    @media (max-width: 809px) {
+      .container { padding: 0 16px; }
+      section { padding: 64px 0; }
+      h2 { font-size: 34px; }
+      .hero { padding: 145px 0 100px; }
+      .hero-grid { gap: 72px; }
+      .brand { font-size: 22px; }
+      .brand-mark { height: 32px; width: 28px; }
+      .badges { gap: 10px; }
+      .badge { padding: 6px 10px; font-size: 9px; }
+      .badge strong { font-size: 12px; }
+      h1 { font-size: clamp(30px, 8.6vw, 62px); }
+      .headline-row { gap: 10px; }
+      .headline-row em { padding: 0 5px; }
+      .hero-copy > p { font-size: 16px; }
+      .actions { gap: 20px; }
+      .btn { padding: 12px 20px; font-size: 15px; }
+      .collage { width: calc(100% - 40px); max-width: 440px; padding: 12px; }
+      .steam-note { right: -12px; font-size: 10px; }
+      .fresh-note { right: 20px; top: 32px; font-size: 20px; }
+      .report { left: -12px; width: 150px; }
+      .mini-photo { right: -12px; width: 140px; }
+      .mini-photo img { height: 76px; }
+      .food-grid { grid-template-columns: 1fr; gap: 32px; }
+      .combo-grid, .perks, .review-grid { grid-template-columns: 1fr; gap: 24px; }
+      .coupon h3 { font-size: 30px; }
+      .coupon-bottom { flex-direction: row; align-items: end; }
+      .locker { padding: 64px 0; }
+      .locker-box { padding: 24px; gap: 24px; }
+      .locker h2 { font-size: 36px; }
+      .ticket { padding: 24px; gap: 16px; }
+      .ticket h2 { font-size: 34px; }
+      .signup { flex-direction: column; padding-top: 24px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+      .footer-bottom { flex-direction: column; }
+      .menu-hero { min-height: 520px; padding: 150px 0 60px; }
+      .menu-hero h1 { font-size: clamp(32px, 7.6vw, 54px); }
+      .category-title h2 { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header with Marquee Ticker and Nav -->
+  <header class="site-header">
+    <div class="ticker" aria-label="Fresh batches, secret sauce, waffle fries and first-order delivery offer">
+      <div class="ticker-track">
+        <div class="ticker-group">
+          <span>SECRET 1978 SHACK SAUCE</span>
+          <span>TWICE-FRIED WAFFLE FRIES</span>
+          <span>FREE DELIVERY ON 1ST CRAVE ORDER CODE: SNACKFIRST</span>
+          <span>FRESH BATCHES GRIDDLED NON-STOP</span>
+          <span>100% SMASHED ANGUS BEEF</span>
+        </div>
+        <div class="ticker-group" aria-hidden="true">
+          <span>SECRET 1978 SHACK SAUCE</span>
+          <span>TWICE-FRIED WAFFLE FRIES</span>
+          <span>FREE DELIVERY ON 1ST CRAVE ORDER CODE: SNACKFIRST</span>
+          <span>FRESH BATCHES GRIDDLED NON-STOP</span>
+          <span>100% SMASHED ANGUS BEEF</span>
+        </div>
+      </div>
+    </div>
+    <nav class="nav" aria-label="Main navigation">
+      <div class="container nav-inner">
+        <a class="brand" href="#home" onclick="switchTab('home', event)" aria-label="Papa's Kitchen home">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>PAPA'S <b>KITCHEN</b></span>
+        </a>
+        <div class="nav-links" id="navigation">
+          <a href="#home" class="nav-home-btn" aria-current="page" onclick="switchTab('home', event)">HOME</a>
+          <a href="#menu" class="nav-menu-btn" onclick="switchTab('menu', event)">FULL MENU</a>
+          <a href="index.html">MUFFINNS PORTAL</a>
+        </div>
+        <a class="btn red" href="https://www.doordash.com/" target="_blank" rel="noopener noreferrer">
+          ORDER PICKUP 
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M4 12h15M13 5l7 7-7 7"/>
+          </svg>
+        </a>
+        <button class="menu-toggle" aria-label="Open navigation" aria-controls="navigation" aria-expanded="false">
+          <span class="hamburger" aria-hidden="true"></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- HOME VIEW CONTAINER -->
+  <div id="papas-home-view">
+    <main>
+      <!-- Hero Section -->
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <div class="badges">
+              <div class="badge reveal" data-delay="0" data-from-y="-40"><strong>★ &nbsp;4.9 / 5.0</strong> FROM 12,000+ FOODIES</div>
+              <div class="badge reveal" data-delay=".1" data-from-y="-40"><strong>ϟ &nbsp;18 MIN</strong> AVG PREP VELOCITY</div>
+              <div class="badge reveal" data-delay=".2" data-from-y="-40"><strong>100%</strong> CRISP CRUST GUARANTEED</div>
+            </div>
+            <h1 id="hero-title">
+              <span class="headline-row reveal" data-delay=".3" data-from-y="120"><span>CRAVEABLE</span><em>STACKS.</em></span>
+              <span class="headline-row reveal" data-delay=".5" data-from-y="120"><span>CRISPY</span><em>SNACKS.</em></span>
+            </h1>
+            <p class="reveal" data-delay=".7" data-from-y="120">
+              Smashburgers dripping with house sauce, twice-fried chicken tenders, and loaded seasoned waffle fries.<br>Made fresh to order, zero shortcuts.
+            </p>
+            <div class="actions">
+              <a class="btn red reveal" data-delay=".8" href="https://www.doordash.com/" target="_blank" rel="noopener noreferrer">
+                ORDER PICKUP NOW 
+                <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M4 12h15M13 5l7 7-7 7"/>
+                </svg>
+              </a>
+              <a class="btn reveal" data-delay=".9" href="#menu" onclick="switchTab('menu', event)">EXPLORE FULL MENU</a>
+            </div>
+          </div>
+          <div class="collage">
+            <div class="hero-photo">
+              <img src="https://framerusercontent.com/assets/az77NaF9ZDWzAHAeApCkrVpwUg.png" alt="Triple smashburger with melted cheese, pickles, lettuce and house sauce" fetchpriority="high">
+            </div>
+            <span class="tape" aria-hidden="true"></span>
+            <span class="fresh-note">Fresh Off 480° Steel!</span>
+            <span class="steam-note reveal" data-from-y="-40" data-delay=".4">★ NO STEAM COVERS</span>
+            <div class="report reveal" data-delay=".8">
+              <strong>OFFICIAL FLATTOP<br>REPORT:</strong>99.8% Caramelized Crust Ratio Confirmed
+            </div>
+            <figure class="mini-photo reveal" data-delay="1.2" data-from-y="120">
+              <img src="https://framerusercontent.com/assets/BL1C8fPhxJ4RDjn8AAK9Nwouc.png" alt="Late-night kitchen griddle">
+              <figcaption>Griddle 03 - 11:42 PM</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- Legendary Stacks & Sides -->
+      <section id="most-wanted">
+        <div class="container">
+          <div class="section-heading">
+            <span class="label reveal" data-from-y="40">FRESHLY GRIDDLED DAILY</span>
+            <h2 class="reveal" data-from-y="120">LEGENDARY STACKS &amp; SIDES</h2>
+            <p class="reveal" data-from-y="120" data-delay=".2">
+              Crafted with premium Angus beef, brioche buns, and our top-secret 1978 shack sauce.
+            </p>
+          </div>
+          <div class="food-grid">
+            <article class="food-card reveal" data-delay="0">
+              <div class="food-photo">
+                <img src="https://framerusercontent.com/assets/A0ism05yAdFN1FTEE8H9UaybXhE.jpg" alt="The Triple Beast Smash" loading="lazy">
+                <span class="tag red">Bestseller</span>
+              </div>
+              <div class="food-body">
+                <div class="food-heading">
+                  <h3>The Triple Beast Smash</h3>
+                  <strong class="price">$13.99</strong>
+                </div>
+                <p>Triple 3oz lace-crust Angus, triple aged cheddar, dill pickle smack relish, and secret sauce.</p>
+              </div>
+            </article>
+
+            <article class="food-card reveal" data-delay="0.1">
+              <div class="food-photo">
+                <img src="https://framerusercontent.com/assets/tc1vsMOhjdSjbvtxcZRdbldOFRg.jpg" alt="Smokey Bacon Mac Melt" loading="lazy">
+                <span class="tag yellow">Double Smash</span>
+              </div>
+              <div class="food-body">
+                <div class="food-heading">
+                  <h3>Smokey Bacon Mac Melt</h3>
+                  <strong class="price">$14.49</strong>
+                </div>
+                <p>Double smash patties, applewood thick bacon, skillet mac crumble, and sweet smoky BBQ relish.</p>
+              </div>
+            </article>
+
+            <article class="food-card reveal" data-delay="0.2">
+              <div class="food-photo">
+                <img src="https://framerusercontent.com/assets/BYitr9QlbGmb0zbkBXuSJ5nARM4.jpg" alt="Truffle Butter Smasher" loading="lazy">
+                <span class="tag white">Truffle Infused</span>
+              </div>
+              <div class="food-body">
+                <div class="food-heading">
+                  <h3>Truffle Butter Smasher</h3>
+                  <strong class="price">$15.29</strong>
+                </div>
+                <p>Double certified angus, shaved black truffle butter, caramelized cremini caps, and roasted garlic aioli.</p>
+              </div>
+            </article>
+
+            <article class="food-card reveal" data-delay="0">
+              <div class="food-photo">
+                <img src="https://framerusercontent.com/assets/vQ7QgX2rHOiVu4Uv3GcHGs74cCY.jpg" alt="Honey Glazed Sesame Tenders" loading="lazy">
+                <span class="tag yellow">Sweet &amp; Sticky</span>
+              </div>
+              <div class="food-body">
+                <div class="food-heading">
+                  <h3>Honey Glazed Sesame Tenders</h3>
+                  <strong class="price">$13.99</strong>
+                </div>
+                <p>4 jumbo hand-breaded tenders bathed in spicy wildflower honey, toasted sesame seed crunch &amp; scallions.</p>
+              </div>
+            </article>
+
+            <article class="food-card reveal" data-delay="0.1">
+              <div class="food-photo">
+                <img src="https://framerusercontent.com/assets/tmlYUsDhEc9VhSpoQ2lgyRmfpI.png" alt="Nashville Hot Dunkers" loading="lazy">
+                <span class="tag red">Extra Fiery</span>
+              </div>
+              <div class="food-body">
+                <div class="food-heading">
+                  <h3>Nashville Hot Dunkers</h3>
+                  <strong class="price">$13.99</strong>
+                </div>
+                <p>Dunked in authentic cayenne-brown sugar hot grease, topped with pickled cucumber rounds &amp; cooling garlic labneh.</p>
+              </div>
+            </article>
+
+            <article class="food-card reveal" data-delay="0.2">
+              <div class="food-photo">
+                <img src="https://framerusercontent.com/assets/lRG6Gf5MF0h5GdUBC3jv43I.jpg" alt="Golden Cheesy Waffle Tower" loading="lazy">
+                <span class="tag yellow">Loaded to the Max</span>
+              </div>
+              <div class="food-body">
+                <div class="food-heading">
+                  <h3>Golden Cheesy Waffle Tower</h3>
+                  <strong class="price">$13.99</strong>
+                </div>
+                <p>Deep-groove waffle cuts bathed in aged sharp cheddar sauce, double smoked bacon shards &amp; sour cream.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Combo Madness -->
+      <section>
+        <div class="container">
+          <div class="section-heading center">
+            <span class="label red reveal" data-from-y="40">FEAST VALUE DEALS</span>
+            <h2 class="reveal" data-from-y="120">COMBO MADNESS</h2>
+            <p class="reveal" data-delay=".2">Get loaded up without breaking the wallet. Built for peak appetite.</p>
+          </div>
+          <div class="combo-grid">
+            <article class="coupon dark reveal">
+              <div class="coupon-top">
+                <span>AFTER 9 PM SPECIAL</span>
+                <b>SAVE $9.00</b>
+              </div>
+              <h3>THE LATE NIGHT<br>CROWD PLEASER</h3>
+              <p>Includes 2 Smashes of choice, 1 Large Loaded Fry Tray, and 2 Ice-Cold Craft Sodas.</p>
+              <div class="coupon-bottom">
+                <div>
+                  <strong class="deal-price">$24.99</strong>
+                  <del>$33.99</del>
+                  <small>COUPON: <mark>MIDNIGHT30</mark></small>
+                </div>
+                <a class="btn red" href="https://www.doordash.com/" target="_blank" rel="noopener noreferrer">
+                  GRAB BUNDLE 
+                  <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M4 12h15M13 5l7 7-7 7"/>
+                  </svg>
+                </a>
+              </div>
+            </article>
+
+            <article class="coupon reveal" data-delay=".2">
+              <div class="coupon-top">
+                <span>MON-FRI • 11AM - 3PM</span>
+                <b>EXPRESS DEAL</b>
+              </div>
+              <h3>LUNCHBOX EXPRESS<br>GRAB &amp; GO</h3>
+              <p>Any single griddled smashburger or 3pc tender basket + seasoned side + fountain craft drink.</p>
+              <div class="coupon-bottom">
+                <div>
+                  <strong class="deal-price">$11.99</strong>
+                  <del>$16.50</del>
+                  <small>Ready in under 10 minutes</small>
+                </div>
+                <a class="btn dark" href="https://www.doordash.com/" target="_blank" rel="noopener noreferrer">
+                  ORDER LUNCH 
+                  <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M4 12h15M13 5l7 7-7 7"/>
+                  </svg>
+                </a>
+              </div>
+            </article>
+          </div>
+
+          <div class="perks">
+            <div class="perk reveal">
+              <div>
+                <strong>FREE SAUCE REFILLS</strong>
+                <p>House smack &amp; jalapeño dips on deck</p>
+              </div>
+            </div>
+            <div class="perk reveal" data-delay=".1">
+              <div>
+                <strong>100% COMPOSTABLE</strong>
+                <p>Eco packaging, guilt-free feast</p>
+              </div>
+            </div>
+            <div class="perk reveal" data-delay=".2">
+              <div>
+                <strong>PICKUP IN 15 MINS</strong>
+                <p>Express pickup racks at every spot</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testimonials -->
+      <section>
+        <div class="container">
+          <div class="section-heading center">
+            <span class="label white stars reveal" aria-label="5 out of 5 stars">★★★★★</span>
+            <h2 class="reveal" data-from-y="120">REAL TALK FROM REAL<br>SNACKERS</h2>
+            <p class="reveal" data-delay=".2">No paid influencer fluff. Just unapologetic reviews from hungry locals.</p>
+          </div>
+          <div class="review-grid">
+            <article class="review reveal" data-delay="0">
+              <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+              <blockquote>"The lacy edges on the Triple Beast smash patty are downright absurd. Crispiness off the charts, and that secret sauce needs to be bottled and sold worldwide."</blockquote>
+              <div class="reviewer">
+                <span class="avatar a0">MD</span>
+                <div>
+                  <strong>Marcus D.</strong>
+                  <small>VERIFIED SHACK REGULAR</small>
+                </div>
+              </div>
+            </article>
+
+            <article class="review reveal" data-delay="0.2">
+              <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+              <blockquote>"Ordered pickup at midnight after a long shift. Bag was piping hot, waffle fries didn’t go soggy on the 15-minute drive home, and the churros were still warm."</blockquote>
+              <div class="reviewer">
+                <span class="avatar a1">SK</span>
+                <div>
+                  <strong>Sarah K.</strong>
+                  <small>DTLA LATE NIGHTER</small>
+                </div>
+              </div>
+            </article>
+
+            <article class="review reveal" data-delay="0.4">
+              <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+              <blockquote>"Hands down the best tenders in the city. Sweet wildflower glaze with that spicy kick hits different. Fast-casual done with fine-dining level crunch."</blockquote>
+              <div class="reviewer">
+                <span class="avatar a2">JR</span>
+                <div>
+                  <strong>Jordan R.</strong>
+                  <small>FOOD COLUMNIST</small>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Locker Dispatch -->
+      <section class="locker">
+        <div class="container">
+          <div class="locker-box">
+            <div class="locker-copy">
+              <div><span class="label reveal" data-from-y="40">ZERO WAITING ROOMS • CONTACTLESS DISPATCH</span></div>
+              <h2 class="reveal" data-from-y="120">HUNGRY NOW?<br>GRAB A LOCKER BOX.</h2>
+              <p class="reveal" data-delay=".2" data-from-y="40">Order on your phone or kiosk terminal, unlock heated compartment with your QR code in ~8 minutes.</p>
+            </div>
+            <div class="actions">
+              <a class="btn red reveal" data-from-x="80" data-from-y="0" data-delay=".2" href="https://www.doordash.com/" target="_blank" rel="noopener noreferrer">LAUNCH BENTO KIOSK</a>
+              <a class="btn yellow reveal" data-from-x="80" data-from-y="0" data-delay=".3" href="#menu" onclick="switchTab('menu', event)">VIEW SPEED SPECS</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Drop Club -->
+      <section class="club">
+        <div class="container">
+          <div class="ticket">
+            <span class="label reveal" data-from-y="40">SECRET FLATTOP DISPATCH // SMS ALERTS</span>
+            <h2 class="reveal" data-from-y="120">JOIN THE UNDERGROUND<br>DROP CLUB</h2>
+            <p class="reveal" data-from-y="40" data-delay=".2">
+              Get pinged 20 minutes before unannounced batch drops, limited smash experiments, and secret codes for 50% off griddled sides. No spam, only hot beef drops.
+            </p>
+            <form class="signup" onsubmit="handleSignup(event)">
+              <label for="club-email" hidden>Email address</label>
+              <input id="club-email" name="email" type="email" placeholder="name@email.com" autocomplete="email" required>
+              <button class="btn" type="submit">STAMP MY ACCESS</button>
+            </form>
+            <p class="form-status" id="club-status" role="status" aria-live="polite"></p>
+            <div class="fine-print">
+              <span>* CARRIER RATES APPLY. REPLY STOP ANYTIME.</span>
+              <span>DROP PASS CODE: DTLA-RAW-2024</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- MENU VIEW CONTAINER -->
+  <div id="papas-menu-view" style="display: none;">
+    <main>
+      <!-- Menu Hero -->
+      <section class="menu-hero" aria-labelledby="menu-title">
+        <div class="container menu-hero-inner">
+          <span class="menu-hero-pill reveal" data-from-y="-40">GRIDDLED FRESH TO ORDER • 100% ANGUS BEEF • NEVER FROZEN</span>
+          <h1 id="menu-title">
+            <span class="menu-headline reveal" data-from-y="120" data-delay=".2">THE CRAVE-WORTHY</span>
+            <span class="menu-headline reveal" data-from-y="120" data-delay=".4"><span class="menu-title-sticker">FULL MENU</span></span>
+          </h1>
+          <p class="reveal" data-from-y="120" data-delay=".6">
+            Freshly griddled Angus patties, double-dredged crisp tenders, loaded fry<br>towers, craft shakes &amp; secret dip pots.
+          </p>
+        </div>
+      </section>
+
+      <!-- Category 1: Smashed Stacks -->
+      <section class="menu-category" id="smashed-stacks" aria-labelledby="smashed-stacks-title">
+        <div class="container">
+          <div class="category-heading">
+            <div class="category-title">
+              <span class="label white reveal" data-from-y="120">SIGNATURE PATTIES</span>
+              <div class="category-title-row">
+                <h2 class="reveal" data-from-y="120" id="smashed-stacks-title">🔥 SMASHED STACKS</h2>
+                <span class="crave-count reveal" data-from-y="120" data-delay=".2">4 CRAVES</span>
+              </div>
+            </div>
+            <p class="category-description reveal" data-from-x="120" data-from-y="0" data-delay=".3">
+              Smashed lacy-edge Angus patties on butter-toasted<br>Martin's potato buns.
+            </p>
+          </div>
+          <div class="food-grid">
+            <article class="food-card reveal" data-delay="0" data-from-y="80">
+              <div class="food-photo">
+                <img src="https://framerusercontent.com/assets/A0ism05yAdFN1FTEE8H9UaybXhE.jpg" alt="The Triple Beast Smash" loading="lazy">
+                <span class="tag red">Bestseller</span>
+              </div>
+              <div class="food-body">
+                <div class="food-heading">
+                  <h3>The Triple Beast Smash</h3>
+                  <strong class="price">$13.99</strong>
+                </div>
+                <p>Triple 3oz lace-crust Angus, triple aged cheddar, dill pickle smack relish, and house griddle sauce.</p>
+                <div class="food-meta"><span>980 kcal</span><strong>Bestseller</strong></div>
+              </div>
+            </article>
+
+            <article class="food-card reveal" data-delay="0.1" data-from-y="80">
+              <div class="food-photo">
+                <img src="https://framerusercontent.com/assets/tc1vsMOhjdSjbvtxcZRdbldOFRg.jpg" alt="Smokey Bacon Mac Melt" loading="lazy">
+                <span class="tag yellow">Double Smash</span>
+              </div>
+              <div class="food-body">
+                <div class="food-heading">
+                  <h3>Smokey Bacon Mac Melt</h3>
+                  <strong class="price">$14.49</strong>
+                </div>
+                <p>Double smash patties, applewood thick bacon, skillet mac crumble, and sweet smoky BBQ relish.</p>
+                <div class="food-meta"><span>1,120 kcal</span><strong>Chef Choice</strong></div>
+              </div>
+            </article>
+
+            <article class="food-card reveal" data-delay="0.2" data-from-y="80">
+              <div class="food-photo">
+                <img src="https://framerusercontent.com/assets/BYitr9QlbGmb0zbkBXuSJ5nARM4.jpg" alt="Truffle Butter Smasher" loading="lazy">
+                <span class="tag white">Truffle Infused</span>
+              </div>
+              <div class="food-body">
+                <div class="food-heading">
+                  <h3>Truffle Butter Smasher</h3>
+                  <strong class="price">$15.29</strong>
+                </div>
+                <p>Double certified angus, shaved black truffle butter, caramelized cremini caps, and roasted garlic aioli.</p>
+                <div class="food-meta"><span>890 kcal</span><strong>Black Truffle</strong></div>
+              </div>
+            </article>
+
+            <article class="food-card reveal" data-delay="0" data-from-y="80">
+              <div class="food-photo">
+                <img src="https://framerusercontent.com/assets/lzpx4thAOF1IzvB9AoZn7xqPM0M.jpg" alt="Green Chile Queso Smash" loading="lazy">
+                <span class="tag red">Hot Relish</span>
+              </div>
+              <div class="food-body">
+                <div class="food-heading">
+                  <h3>Green Chile Queso Smash</h3>
+                  <strong class="price">$12.99</strong>
+                </div>
+                <p>Double patties drowned in warm Hatch green chile queso, crisp shoestring onions, and smoked jalapeno crema.</p>
+                <div class="food-meta"><span>940 kcal</span><strong>Hatch Chile</strong></div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Category 2: Crisp Tenders -->
+      <section class="menu-category" id="crisp-tenders" aria-labelledby="crisp-tenders-title">
+        <div class="container">
+          <div class="category-heading">
+            <div class="category-title">
+              <span class="label white reveal" data-from-y="120">BUTTERMILK SOAKED</span>
+              <div class="category-title-row">
+                <h2 class="reveal" data-from-y="120" id="crisp-tenders-title">🍗 CRISP TENDERS &amp; CRUNCH</h2>
+                <span class="crave-count reveal" data-from-y="120" data-delay=".2">3 CRAVES</span>
+              </div>
+            </div>
+            <p class="category-description reveal" data-from-x="120" data-from-y="0" data-delay=".3">
+              24-hour spiced buttermilk brine, hand-dredged twice<br>for maximum shard-like crunch.
+            </p>
+          </div>
+          <div class="food-grid">
+            <article class="food-card reveal" data-delay="0" data-from-y="80">
+              <div class="food-photo">
+                <img src="https://framerusercontent.com/assets/vQ7QgX2rHOiVu4Uv3GcHGs74cCY.jpg" alt="Honey Glazed Sesame Tenders" loading="lazy">
+                <span class="tag yellow">Sweet &amp; Sticky</span>
+              </div>
+              <div class="food-body">
+                <div class="food-heading">
+                  <h3>Honey Glazed Sesame Tenders</h3>
+                  <strong class="price">$13.99</strong>
+                </div>
+                <p>4 jumbo hand-breaded tenders bathed in spicy wildflower honey, toasted sesame seed crunch &amp; scallions.</p>
+                <div class="food-meta"><span>780 kcal • 4 Pcs</span><strong>Includes 2 Sauces</strong></div>
+              </div>
+            </article>
+
+            <article class="food-card reveal" data-delay="0.1" data-from-y="80">
+              <div class="food-photo">
+                <img src="https://framerusercontent.com/assets/tmlYUsDhEc9VhSpoQ2lgyRmfpI.png" alt="Nashville Hot Dunkers" loading="lazy">
+                <span class="tag red">Extra Fiery</span>
+              </div>
+              <div class="food-body">
+                <div class="food-heading">
+                  <h3>Nashville Hot Dunkers</h3>
+                  <strong class="price">$13.99</strong>
+                </div>
+                <p>Dunked in authentic cayenne-brown sugar hot grease, topped with pickled cucumber rounds &amp; cooling garlic labneh.</p>
+                <div class="food-meta"><span>860 kcal • 4 Pcs</span><strong>Choice of Heat 1-4</strong></div>
+              </div>
+            </article>
+
+            <article class="food-card reveal" data-delay="0.2" data-from-y="80">
+              <div class="food-photo">
+                <img src="https://framerusercontent.com/assets/B2hsIfwGt2e46Hk3PcgwLMDTo5U.png" alt="Garlic Parmesan Crisp Bites" loading="lazy">
+                <span class="tag white">Herb Butter</span>
+              </div>
+              <div class="food-body">
+                <div class="food-heading">
+                  <h3>Garlic Parmesan Crisp Bites</h3>
+                  <strong class="price">$13.99</strong>
+                </div>
+                <p>Tossed in roasted garlic herb tallow butter and blanketed under 24-month aged Reggiano curls.</p>
+                <div class="food-meta"><span>740 kcal • 4 Pcs</span><strong>House Ranch Dip</strong></div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Category 3: Loaded Fries & Sides -->
+      <section class="menu-category" id="loaded-fries" aria-labelledby="loaded-fries-title">
+        <div class="container">
+          <div class="category-heading">
+            <div class="category-title">
+              <span class="label white reveal" data-from-y="120">TWICE-FRIED GOODNESS</span>
+              <div class="category-title-row">
+                <h2 class="reveal" data-from-y="120" id="loaded-fries-title">🍟 LOADED FRIES &amp; SIDES</h2>
+                <span class="crave-count reveal" data-from-y="120" data-delay=".2">3 CRAVES</span>
+              </div>
+            </div>
+            <p class="category-description reveal" data-from-x="120" data-from-y="0" data-delay=".3">
+              Russet potatoes cut thick, fried at two precise<br>temperatures for an unbreakable golden exterior.
+            </p>
+          </div>
+          <div class="food-grid">
+            <article class="food-card reveal" data-delay="0" data-from-y="80">
+              <div class="food-photo">
+                <img src="https://framerusercontent.com/assets/lRG6Gf5MF0h5GdUBC3jv43I.jpg" alt="Golden Cheesy Waffle Tower" loading="lazy">
+                <span class="tag yellow">Loaded to the Max</span>
+              </div>
+              <div class="food-body">
+                <div class="food-heading">
+                  <h3>Golden Cheesy Waffle Tower</h3>
+                  <strong class="price">$13.99</strong>
+                </div>
+                <p>Deep-groove waffle cuts bathed in aged sharp cheddar sauce, double smoked bacon shards &amp; sour cream.</p>
+                <div class="food-meta"><span>720 kcal</span><strong>House Cheese Sauce</strong></div>
+              </div>
+            </article>
+
+            <article class="food-card reveal" data-delay="0.1" data-from-y="80">
+              <div class="food-photo">
+                <img src="https://framerusercontent.com/assets/vQ7QgX2rHOiVu4Uv3GcHGs74cCY.jpg" alt="Smothered Truffle Bacon Fries" loading="lazy">
+                <span class="tag white">Truffle Aioli</span>
+              </div>
+              <div class="food-body">
+                <div class="food-heading">
+                  <h3>Smothered Truffle Bacon Fries</h3>
+                  <strong class="price">$12.49</strong>
+                </div>
+                <p>Crisp hand-cut fries showered in white truffle oil, shaved parmesan, crisp pancetta crumble &amp; chives.</p>
+                <div class="food-meta"><span>680 kcal</span><strong>Double Bacon</strong></div>
+              </div>
+            </article>
+
+            <article class="food-card reveal" data-delay="0.2" data-from-y="80">
+              <div class="food-photo">
+                <img src="https://framerusercontent.com/assets/tmlYUsDhEc9VhSpoQ2lgyRmfpI.png" alt="Firecracker Loaded Dippers" loading="lazy">
+                <span class="tag red">Spicy Crunch</span>
+              </div>
+              <div class="food-body">
+                <div class="food-heading">
+                  <h3>Firecracker Loaded Dippers</h3>
+                  <strong class="price">$11.99</strong>
+                </div>
+                <p>Spicy dusted potato wedges with melted pepper jack queso, pickled jalapenos and cilantro lime crema.</p>
+                <div class="food-meta"><span>640 kcal</span><strong>Fiery Queso</strong></div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Category 4: Craft Shakes & Sweets -->
+      <section class="menu-category" id="craft-shakes" aria-labelledby="craft-shakes-title">
+        <div class="container">
+          <div class="category-heading">
+            <div class="category-title">
+              <span class="label white reveal" data-from-y="120">SPUN THICK CUSTARD</span>
+              <div class="category-title-row">
+                <h2 class="reveal" data-from-y="120" id="craft-shakes-title">🥤 CRAFT SHAKES &amp; SWEETS</h2>
+                <span class="crave-count reveal" data-from-y="120" data-delay=".2">3 CRAVES</span>
+              </div>
+            </div>
+            <p class="category-description reveal" data-from-x="120" data-from-y="0" data-delay=".3">
+              Hand-spun vanilla bean frozen custard mixed with<br>premium syrups and artisan crunch bits.
+            </p>
+          </div>
+          <div class="food-grid">
+            <article class="food-card reveal" data-delay="0" data-from-y="80">
+              <div class="food-photo">
+                <img src="https://framerusercontent.com/assets/LPBoqy78qTGIrf0drMO6PUk9w.jpg" alt="Campfire S'mores Malt" loading="lazy">
+                <span class="tag red">Torched Mallow</span>
+              </div>
+              <div class="food-body">
+                <div class="food-heading">
+                  <h3>Campfire S'mores Malt</h3>
+                  <strong class="price">$13.99</strong>
+                </div>
+                <p>Double Dutch cocoa malt base, honey graham crust swirl, crowned with fresh live-torched campfire marshmallow fluff.</p>
+                <div class="food-meta"><span>830 kcal • 16oz</span><strong>Torch Kissed</strong></div>
+              </div>
+            </article>
+
+            <article class="food-card reveal" data-delay="0.1" data-from-y="80">
+              <div class="food-photo">
+                <img src="https://framerusercontent.com/assets/QoMm6ZL5MBT1Edgk64v7pBCsGPA.jpg" alt="Dulce De Leche Churro Stack" loading="lazy">
+                <span class="tag yellow">Warm Churro Incl.</span>
+              </div>
+              <div class="food-body">
+                <div class="food-heading">
+                  <h3>Dulce De Leche Churro Stack</h3>
+                  <strong class="price">$13.99</strong>
+                </div>
+                <p>Caramel custard shake ribboned with Argentine dulce de leche, topped with a fresh warm cinnamon sugar churro.</p>
+                <div class="food-meta"><span>710 kcal • 16oz</span><strong>Hand Spun</strong></div>
+              </div>
+            </article>
+
+            <article class="food-card reveal" data-delay="0.2" data-from-y="80">
+              <div class="food-photo">
+                <img src="https://framerusercontent.com/assets/6L6MwdWHXIhm6dlNGY7jXbazEQ.jpg" alt="Salted Pretzel Pb Shake" loading="lazy">
+                <span class="tag white">Sweet &amp; Salty</span>
+              </div>
+              <div class="food-body">
+                <div class="food-heading">
+                  <h3>Salted Pretzel Pb Shake</h3>
+                  <strong class="price">$13.99</strong>
+                </div>
+                <p>Creamy roasted peanut butter folded with crunchy sea salt butter pretzel crumble and fleur de sel caramel.</p>
+                <div class="food-meta"><span>790 kcal • 16oz</span><strong>Fan Favorite</strong></div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Shared Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h2>PAPA'S KITCHEN</h2>
+          <p>High-heat smash patties, crispy loaded snacks, and cold crafted sips delivered with street-speed velocity. Proud brand of the MUFFINNS culinary family.</p>
+          <label for="footer-email">GET SECRET MENU DROPS</label>
+          <form class="footer-signup" onsubmit="handleSignup(event)">
+            <input type="email" id="footer-email" name="email" placeholder="Enter Your Email" autocomplete="email" required>
+            <button type="submit">Join</button>
+          </form>
+          <p class="form-status" id="footer-status" role="status" aria-live="polite"></p>
+        </div>
+        <div>
+          <h4>Pages</h4>
+          <div class="footer-links">
+            <a href="#home" onclick="switchTab('home', event)">HOME</a>
+            <a href="#menu" onclick="switchTab('menu', event)">FULL MENU</a>
+            <a href="index.html">MUFFINNS PORTAL</a>
+            <a href="index.html#muffins-sweets-bakers">SWEETS &amp; BAKERS</a>
+            <a href="index.html#muffins-cafe-grill">CAFE &amp; GRILL</a>
+          </div>
+        </div>
+        <div>
+          <div class="location">
+            <small>FLAGSHIP SHACK</small>
+            <strong>Bahawalpur Central &bull; Sunset Flattop Station</strong>
+            <p>Mon - Sun: 11:00 AM - 2:00 AM Late Night</p>
+            <a href="https://wa.me/923202587047?text=Hello%20Papa%27s%20Kitchen!" target="_blank" rel="noopener noreferrer">
+              Chat on WhatsApp: +92 320 2587047 
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M4 12h15M13 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+          <div class="connect">CONNECT: &nbsp; Facebook &nbsp; Instagram &nbsp; TikTok</div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Papa's Kitchen &bull; Crave Craft &bull; MUFFINNS Culinary Group.</span>
+        <div class="legal">
+          <a href="index.html">Main Portal</a>
+          <a href="#home" onclick="switchTab('home', event)">Home</a>
+          <a href="#menu" onclick="switchTab('menu', event)">Menu</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Link Back to Main MUFFINNS Portal -->
+  <a href="index.html#menu" class="papas-back-btn" aria-label="Return to MUFFINNS Home">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="19" y1="12" x2="5" y2="12"></line>
+      <polyline points="12 19 5 12 12 5"></polyline>
+    </svg>
+    <span>Back to MUFFINNS</span>
+  </a>
+
+  <script>
+    let standaloneScrollObserver = null;
+
+    function initStandaloneObserver(container) {
+      const scope = container || document;
+      const reveals = Array.from(scope.querySelectorAll('.reveal'));
+
+      reveals.forEach(function(el) {
+        const delay = el.dataset.delay ? parseFloat(el.dataset.delay) : 0;
+        el.style.setProperty('--delay', delay + 's');
+        if (el.dataset.fromY !== undefined) {
+          el.style.setProperty('--from-y', el.dataset.fromY + 'px');
+        } else if (!el.dataset.fromX) {
+          el.style.setProperty('--from-y', '80px');
+        }
+        if (el.dataset.fromX !== undefined) {
+          el.style.setProperty('--from-x', el.dataset.fromX + 'px');
+        }
+      });
+
+      if (standaloneScrollObserver) {
+        standaloneScrollObserver.disconnect();
+      }
+
+      standaloneScrollObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          const el = entry.target;
+          if (entry.isIntersecting) {
+            el.classList.add('is-visible');
+          } else {
+            const rect = entry.boundingClientRect;
+            if (rect.top > window.innerHeight || rect.bottom < -40) {
+              el.classList.remove('is-visible');
+            }
+          }
+        });
+      }, {
+        threshold: 0.12,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      reveals.forEach(function(el) {
+        standaloneScrollObserver.observe(el);
+      });
+
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          reveals.forEach(function(el) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+              el.classList.add('is-visible');
+            }
+          });
+        });
+      });
+
+      const burgerImg = document.querySelector('.hero-photo img');
+      if (burgerImg) {
+        burgerImg.classList.remove('zoom-in');
+        void burgerImg.offsetWidth;
+        burgerImg.classList.add('zoom-in');
+      }
+    }
+
+    function switchTab(tab, e) {
+      if (e && e.preventDefault) e.preventDefault();
+      const homeView = document.getElementById('papas-home-view');
+      const menuView = document.getElementById('papas-menu-view');
+      const homeBtns = document.querySelectorAll('.nav-home-btn');
+      const menuBtns = document.querySelectorAll('.nav-menu-btn');
+      
+      const nav = document.querySelector('.nav');
+      const toggle = document.querySelector('.menu-toggle');
+      if (nav && toggle) {
+        nav.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+
+      // Reset all reveals
+      document.querySelectorAll('.reveal').forEach(function(el) {
+        el.classList.remove('is-visible');
+      });
+
+      if (tab === 'menu') {
+        homeView.style.display = 'none';
+        menuView.style.display = 'block';
+        homeBtns.forEach(b => b.removeAttribute('aria-current'));
+        menuBtns.forEach(b => b.setAttribute('aria-current', 'page'));
+        window.location.hash = 'menu';
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        setTimeout(function() {
+          initStandaloneObserver(menuView);
+        }, 50);
+      } else {
+        homeView.style.display = 'block';
+        menuView.style.display = 'none';
+        menuBtns.forEach(b => b.removeAttribute('aria-current'));
+        homeBtns.forEach(b => b.setAttribute('aria-current', 'page'));
+        window.location.hash = 'home';
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        setTimeout(function() {
+          initStandaloneObserver(homeView);
+        }, 50);
+      }
+    }
+
+    function triggerAnimations() {
+      const activeView = (window.location.hash === '#menu') ? document.getElementById('papas-menu-view') : document.getElementById('papas-home-view');
+      initStandaloneObserver(activeView);
+    }
+
+    function handleSignup(e) {
+      e.preventDefault();
+      const form = e.target;
+      const status = form.parentElement.querySelector('.form-status');
+      if (status) {
+        status.textContent = "You're on the list! We'll alert you 20 mins before secret batch drops.";
+        status.style.color = '#37c588';
+      }
+      form.reset();
+    }
+
+    // Mobile nav toggle
+    const nav = document.querySelector('.nav');
+    const toggle = document.querySelector('.menu-toggle');
+    if (toggle) {
+      toggle.addEventListener('click', () => {
+        const open = nav.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', String(open));
+      });
+    }
+
+    // Hash on load
+    window.addEventListener('DOMContentLoaded', () => {
+      if (window.location.hash === '#menu') {
+        switchTab('menu');
+      } else {
+        triggerAnimations();
+      }
+    });
+
+    window.addEventListener('popstate', () => {
+      if (window.location.hash === '#menu') {
+        switchTab('menu');
+      } else {
+        switchTab('home');
+      }
+    });
+  </script>
+</body>
+</html>

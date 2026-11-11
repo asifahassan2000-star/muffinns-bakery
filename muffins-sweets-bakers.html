@@ -200,6 +200,7 @@
       position: relative;
       height: 620px;
       margin-top: 24px;
+      perspective: 1200px;
     }
     .hero h1 {
       font-size: clamp(100px, 28vw, 420px);
@@ -210,13 +211,21 @@
     }
     .hero-photo {
       position: absolute;
-      width: 62%;
-      height: 500px;
+      left: 50%;
+      top: 140px;
+      transform: translate3d(-50%, 0, 0);
+      width: auto;
+      max-width: 68%;
+      height: 520px;
       object-fit: contain;
-      left: 20%;
-      top: 180px;
-      mix-blend-mode: multiply;
-      animation: hero-in 1.1s .4s both;
+      mix-blend-mode: normal !important;
+      background: transparent !important;
+      filter: drop-shadow(0 28px 40px rgba(65, 35, 12, 0.32)) drop-shadow(0 12px 20px rgba(0, 0, 0, 0.16));
+      transform-style: preserve-3d;
+      transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.4, 1), filter 0.35s ease;
+      will-change: transform, filter;
+      cursor: grab;
+      z-index: 2;
     }
     .hand-note {
       position: absolute;
@@ -548,22 +557,134 @@
       background: var(--butter);
       text-align: center;
     }
-    .reveal { opacity: 1; }
-    .js-motion .reveal {
-      opacity: 0;
-      transform: translateY(80px);
-      transition: opacity 1s, transform 1s cubic-bezier(.2, .75, .25, 1);
-    }
-    .js-motion .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible {
-      outline: 2px solid var(--honey);
-      outline-offset: 4px;
+    /* ============================================================== */
+    /* STANDALONE MUFFINNS SWEETS & BAKERS ANIMATIONS ENGINE          */
+    /* ============================================================== */
+    @keyframes sweetsMarquee {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-50%, 0, 0); }
     }
 
-    /* Floating Back to MUFFINNS portal button */
+    @keyframes sweetsNavIn {
+      0% { opacity: 0; transform: translate3d(0, -60px, 0); }
+      100% { opacity: 1; transform: translate3d(0, 0, 0); }
+    }
+
+    @keyframes sweetsHeroIn3D {
+      0% {
+        opacity: 0;
+        transform: translate3d(-50%, 90px, 0) scale3d(0.86, 0.86, 1) rotate(-3.5deg);
+        filter: drop-shadow(0 8px 12px rgba(65, 35, 12, 0.1));
+      }
+      60% {
+        transform: translate3d(-50%, -10px, 20px) scale3d(1.03, 1.03, 1) rotate(1deg);
+      }
+      100% {
+        opacity: 1;
+        transform: translate3d(-50%, 0, 0) scale3d(1, 1, 1) rotate(0deg);
+        filter: drop-shadow(0 28px 40px rgba(65, 35, 12, 0.32)) drop-shadow(0 12px 20px rgba(0, 0, 0, 0.16));
+      }
+    }
+
+    @keyframes muffinFloat3D {
+      0%, 100% {
+        transform: translate3d(-50%, 0, 0) rotate(0deg) scale3d(1, 1, 1);
+        filter: drop-shadow(0 28px 40px rgba(65, 35, 12, 0.32)) drop-shadow(0 12px 20px rgba(0, 0, 0, 0.16));
+      }
+      50% {
+        transform: translate3d(-50%, -18px, 25px) rotate(1.6deg) scale3d(1.03, 1.03, 1);
+        filter: drop-shadow(0 42px 50px rgba(65, 35, 12, 0.38)) drop-shadow(0 16px 26px rgba(0, 0, 0, 0.22));
+      }
+    }
+
+    @keyframes sweetsNoteIn {
+      0% { opacity: 0; transform: translate3d(0, 24px, 0) rotate(-8deg); }
+      100% { opacity: 1; transform: translate3d(0, 0, 0) rotate(-8deg); }
+    }
+
+    .nav {
+      animation: sweetsNavIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .hero-photo {
+      animation: sweetsHeroIn3D 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+      transform-origin: center center;
+      will-change: transform, opacity, filter;
+    }
+    .hero-photo.hero-animated {
+      animation: sweetsHeroIn3D 1.3s cubic-bezier(0.16, 1, 0.3, 1) both,
+                 muffinFloat3D 6.5s ease-in-out 1.35s infinite alternate !important;
+    }
+    .hero-photo:hover {
+      filter: drop-shadow(0 44px 56px rgba(65, 35, 12, 0.44)) drop-shadow(0 20px 30px rgba(0, 0, 0, 0.26));
+    }
+
+    .hand-note {
+      animation: sweetsNoteIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+    }
+
+    .ticker-track {
+      display: flex !important;
+      width: max-content !important;
+      animation: sweetsMarquee 32s linear infinite !important;
+      will-change: transform;
+    }
+    .ticker-track:hover {
+      animation-play-state: paused;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translate3d(0, 64px, 0);
+      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 1.05s cubic-bezier(0.22, 1, 0.36, 1);
+      transition-delay: var(--delay, 0s);
+      will-change: opacity, transform;
+    }
+    .reveal.visible {
+      opacity: 1 !important;
+      transform: translate3d(0, 0, 0) !important;
+    }
+
+    .product img {
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .product:hover img {
+      transform: translateY(-8px) scale(1.025);
+    }
+
+    .category-pills a {
+      transition: transform 0.3s cubic-bezier(0.34, 1.25, 0.64, 1), box-shadow 0.3s ease;
+    }
+    .category-pills a:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(91, 58, 31, 0.15);
+    }
+
+    .button {
+      transition: background 0.25s, color 0.25s, transform 0.25s cubic-bezier(0.34, 1.25, 0.64, 1), box-shadow 0.25s ease;
+    }
+    .button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(91, 58, 31, 0.2);
+    }
+
+    .location {
+      transition: transform 0.35s cubic-bezier(0.34, 1.25, 0.64, 1), box-shadow 0.35s ease;
+    }
+    .location:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 36px rgba(91, 58, 31, 0.12);
+    }
+
+    .value {
+      transition: transform 0.3s cubic-bezier(0.34, 1.25, 0.64, 1);
+    }
+    .value:hover {
+      transform: translateY(-3px);
+    }
+
+        /* Floating Back to MUFFINNS portal button */
     .portal-back-btn {
       position: fixed;
       bottom: 24px;
@@ -611,7 +732,7 @@
       .wrap { max-width: 990px; }
       h2 { font-size: 76px; }
       .hero-stage { height: 480px; }
-      .hero-photo { top: 130px; height: 390px; }
+      .hero-photo { top: 110px; height: 400px; max-width: 82%; left: 50%; }
       .hero-bottom h3 { font-size: 48px; }
       .hero-bottom .poem { font-size: 25px; }
       .crisp-note { top: 320px; }
@@ -651,7 +772,7 @@
       .micro-row > * + * { padding-left: 12px; }
       .hero-stage { height: 370px; }
       .hero h1 { font-size: 25vw; line-height: 1; }
-      .hero-photo { width: 100%; left: 0; top: 75px; height: 300px; }
+      .hero-photo { width: 90%; max-width: 380px; left: 50%; top: 60px; height: 300px; }
       .hand-note { font-size: 20px; right: 5%; top: 25px; }
       .crisp-note, .layers-note { display: none; }
       .hero-bottom { grid-template-columns: 1fr 1fr; gap: 24px; }
@@ -728,7 +849,7 @@
         </div>
         <div class="hero-stage">
           <h1>CROISSANT</h1>
-          <img class="hero-photo" src="https://images.unsplash.com/photo-1691480162735-9b91238080f6?auto=format&amp;fit=crop&amp;w=1600&amp;q=90" alt="Golden butter croissant" loading="lazy">
+          <img class="hero-photo" src="/assets/aistudio/image_c08d8cd8.png" alt="Muffins Sweets &amp; Bakers Artisan Chocolate Muffin" loading="lazy">
           <span class="script hand-note">made fresh,<br>made with care</span>
           <span class="script crisp-note">Crisp<br>Golden Shell</span>
           <span class="script layers-note">Flaky<br>Layers</span>
@@ -1197,18 +1318,70 @@
 
   <script>
     const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let observer;
-    if (!reduced && 'IntersectionObserver' in window) {
-      document.documentElement.classList.add('js-motion');
-      observer = new IntersectionObserver((entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.classList.add('visible');
-            observer.unobserve(e.target);
+    let observer = null;
+
+    function initSweetsObserver(container) {
+      const scope = container || document;
+      const reveals = Array.from(scope.querySelectorAll('.reveal'));
+
+      reveals.forEach(function(el) {
+        const parentGrid = el.closest('.grid3, .grid2, .values, .category-pills');
+        if (parentGrid) {
+          const siblings = Array.from(parentGrid.querySelectorAll('.reveal'));
+          const idx = siblings.indexOf(el);
+          if (idx !== -1) {
+            const colDelay = (idx % 3) * 0.12;
+            el.style.setProperty('--delay', colDelay + 's');
+            return;
+          }
+        }
+        el.style.setProperty('--delay', '0s');
+      });
+
+      if (observer) {
+        observer.disconnect();
+      }
+
+      // Re-triggering scroll reveal observer
+      observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          const el = entry.target;
+          if (entry.isIntersecting) {
+            el.classList.add('visible');
+          } else {
+            // Remove on exit so scrolling back re-animates!
+            const rect = entry.boundingClientRect;
+            if (rect.top > window.innerHeight || rect.bottom < -40) {
+              el.classList.remove('visible');
+            }
           }
         });
-      }, { threshold: .15 });
-      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      reveals.forEach(function(el) {
+        observer.observe(el);
+      });
+
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          reveals.forEach(function(el) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+              el.classList.add('visible');
+            }
+          });
+        });
+      });
+
+      const heroPhoto = document.querySelector('.hero-photo');
+      if (heroPhoto) {
+        heroPhoto.classList.remove('hero-animated');
+        void heroPhoto.offsetWidth;
+        heroPhoto.classList.add('hero-animated');
+      }
     }
 
     const toggle = document.querySelector('.menu-toggle');
@@ -1231,6 +1404,12 @@
         toggle.textContent = 'Menu';
       }
       document.title = menu ? 'Menu — Lamina Bakehouse' : 'Muffins Sweets & Bakers — Baked Before Sunrise | Lamina Bakehouse';
+
+      // Reset reveals before triggering new view
+      document.querySelectorAll('.reveal').forEach(function(el) {
+        el.classList.remove('visible');
+      });
+
       requestAnimationFrame(() => {
         if (menu) {
           const category = hash.split('/')[1];
@@ -1240,13 +1419,19 @@
           } else {
             window.scrollTo({ top: 0, behavior: 'instant' });
           }
+          setTimeout(function() {
+            initSweetsObserver(document.querySelector('.menu-page'));
+          }, 50);
         } else if (hash === '#home') {
           window.scrollTo({ top: 0, behavior: 'instant' });
+          setTimeout(function() {
+            initSweetsObserver(document.querySelector('.home-page'));
+          }, 50);
         } else {
           document.querySelector(hash)?.scrollIntoView({ behavior: reduced ? 'instant' : 'smooth' });
-        }
-        if (observer) {
-          document.querySelectorAll('.reveal:not(.visible)').forEach((el) => observer.observe(el));
+          setTimeout(function() {
+            initSweetsObserver(document);
+          }, 50);
         }
       });
     }
@@ -1259,6 +1444,49 @@
       const msg = document.getElementById('newsletter-message');
       if (msg) msg.textContent = 'Demo only: connect your newsletter provider to enable subscriptions.';
     });
+
+    // Interactive 3D mouse parallax tilt for hero muffin
+    (function setupHero3dTilt() {
+      const heroStage = document.querySelector('.hero-stage');
+      const heroPhoto = document.querySelector('.hero-photo');
+      if (!heroStage || !heroPhoto) return;
+
+      let isHovering = false;
+      let rafId = null;
+
+      heroStage.addEventListener('mouseenter', () => {
+        isHovering = true;
+        heroPhoto.style.animationPlayState = 'paused';
+        heroPhoto.style.transition = 'transform 0.12s cubic-bezier(0.2, 0.8, 0.4, 1), filter 0.3s ease';
+      });
+
+      heroStage.addEventListener('mousemove', (e) => {
+        if (!isHovering) return;
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(() => {
+          const rect = heroStage.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotateX = ((y - centerY) / centerY) * -14;
+          const rotateY = ((x - centerX) / centerX) * 14;
+          heroPhoto.style.transform = `translate3d(-50%, -10px, 35px) perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.04, 1.04, 1.04)`;
+        });
+      });
+
+      heroStage.addEventListener('mouseleave', () => {
+        isHovering = false;
+        if (rafId) cancelAnimationFrame(rafId);
+        heroPhoto.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease';
+        heroPhoto.style.transform = '';
+        setTimeout(() => {
+          if (!isHovering) {
+            heroPhoto.style.animationPlayState = 'running';
+          }
+        }, 600);
+      });
+    })();
   </script>
 </body>
 </html>

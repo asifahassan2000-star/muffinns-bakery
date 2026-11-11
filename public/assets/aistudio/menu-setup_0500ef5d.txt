@@ -1,0 +1,23 @@
+CRAVE CRAFT MENU — STANDALONE RECREATION
+
+SETUP
+Download crave-craft-menu.txt, rename it menu.html and place it next to the previously provided index.html. Open menu.html in a modern browser. All CSS and JavaScript are included inline; the optional separate CSS and JavaScript downloads are reference copies, not additional required files.
+
+INCLUDED
+Responsive announcement ticker, fixed navigation, mobile menu, centered headline with tilted title sticker, all four category sections, food photos, prices, nutrition and sides, footer and newsletter form markup. Navigation links to index.html and menu.html work when the files share a folder. Story, Contact and legal links still need their corresponding pages on your web server.
+
+ANIMATIONS
+Continuous marquee, staggered hero entrances (0, .2, .4 and .6 seconds), scroll-triggered category headings, side-sliding descriptions, staggered card reveals, mobile navigation expansion, button hover and pressed effects. One-time reveals and reduced-motion support are included. CSS easing approximates the original spring motion; it is not the proprietary Framer runtime.
+
+CURRENT PAGE CONTENT
+The inspected website currently repeats the chicken-tender cards in the Loaded Fries & Sides section. This recreation preserves that visible content instead of silently changing your design. The category heading still reads Loaded Fries & Sides.
+
+DATA AND SERVICES
+Menu items are a static snapshot, not a live Framer CMS connection.
+Images remain hosted on Framer and fonts on Google Fonts, so internet access is required. Download and self-host assets for an offline version, subject to your usage rights.
+Ordering links preserve the website’s generic DoorDash URL. Replace them with your real restaurant ordering destination.
+Newsletter form does not collect subscribers until connected. Set its data-endpoint to your HTTPS subscription handler that accepts JSON { email: "..." } and supports CORS. Do not include private credentials in client-side code.
+No shopping cart or checkout has been invented; neither was present on the inspected Menu page.
+
+LIMITS
+Standalone recreation, not an original Framer source export. Some decorative icons and shared footer details are simplified. Proprietary smooth-scrolling is not duplicated exactly. The downloaded file has not been browser-render tested here. The Framer project itself has not been changed.

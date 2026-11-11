@@ -17,6 +17,7 @@ export default defineConfig(() => {
           main: path.resolve(__dirname, 'index.html'),
           muffinsCafeGrill: path.resolve(__dirname, 'muffins-cafe-grill.html'),
           muffinsSweetsBakers: path.resolve(__dirname, 'muffins-sweets-bakers.html'),
+          papasKitchen: path.resolve(__dirname, 'papas-kitchen.html'),
         },
       },
     },

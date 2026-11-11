@@ -1,0 +1,24 @@
+CRAVE CRAFT — STANDALONE HOME PAGE
+
+SETUP
+1. Download crave-craft-home.txt and rename it index.html.
+2. Open index.html in a modern browser. No build or dependencies are required.
+3. HTML already contains all CSS and JavaScript. Separate CSS and JS downloads are optional reference copies; do not include them again unless you remove the inline versions.
+
+CONTENTS
+Responsive Home page, navigation with mobile toggle, hero collage, six featured menu cards, combo offers, perks, testimonials, pickup callout, signup ticket, footer.
+
+ANIMATIONS
+Continuous announcement ticker, hero badge and headline stagger, hero photo scale-down, sticker entrances, one-time scroll reveals, button background transitions and mobile menu expansion. Reduced-motion preferences are respected. Spring entrances are approximated with CSS easing, not the original Framer engine.
+
+ASSETS
+Photos use public Framer-hosted URLs. Fonts load from Google Fonts. Internet is required for photos and fonts. Download and self-host these resources if you need an offline version; ensure your usage rights cover them.
+
+LINKS
+Only Home is included. /menu, /our-story, /contact-us, /privacy-policy, /terms-of-service and /404 need corresponding pages on your host. Order links preserve the original generic DoorDash destination; replace them with your restaurant’s specific ordering URL.
+
+FORMS
+Signup markup is included, but no mailing-service credentials or backend are included. Configure each form’s data-endpoint with your own HTTPS endpoint that accepts JSON containing email and supports CORS. Until connected, the page clearly reports that signup is not connected. Never embed private API keys in browser code.
+
+SCOPE
+This is a standalone recreation based on the inspected Framer page, not original exported Framer source. Framer CMS is represented by a static featured-item snapshot. Proprietary smooth-scroll behavior and service-backed features are not reproduced exactly. Decorative icons and some details are simplified. Project canvas has not been modified. Browser rendering of the downloadable file has not been verified here.
