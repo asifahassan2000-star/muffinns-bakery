@@ -254,6 +254,69 @@ export default function App() {
     };
   }, []);
 
+  // Interactive 3D movement and mouse parallax on Muffins Sweets & Bakers celebration cake
+  useEffect(() => {
+    let isHovering = false;
+    let rafId: number | null = null;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const visitWrap = document.querySelector('#muffins-sweets-bakers-page .visit .wrap') as HTMLElement | null;
+      const cakeImg = document.querySelector('#muffins-sweets-bakers-page .visit-cake-img') as HTMLElement | null;
+      if (!visitWrap || !cakeImg || !isHovering) return;
+
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        const rect = visitWrap.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -12;
+        const rotateY = ((x - centerX) / centerX) * 12;
+        cakeImg.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.05, 1.05, 1.05) translateY(-14px)`;
+      });
+    };
+
+    const handleMouseEnter = () => {
+      const cakeImg = document.querySelector('#muffins-sweets-bakers-page .visit-cake-img') as HTMLElement | null;
+      if (cakeImg) {
+        isHovering = true;
+        cakeImg.style.animationPlayState = 'paused';
+        cakeImg.style.transition = 'transform 0.12s cubic-bezier(0.2, 0.8, 0.4, 1), filter 0.3s ease';
+      }
+    };
+
+    const handleMouseLeave = () => {
+      const cakeImg = document.querySelector('#muffins-sweets-bakers-page .visit-cake-img') as HTMLElement | null;
+      isHovering = false;
+      if (rafId) cancelAnimationFrame(rafId);
+      if (cakeImg) {
+        cakeImg.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease';
+        cakeImg.style.transform = '';
+        setTimeout(() => {
+          if (!isHovering && cakeImg) {
+            cakeImg.style.animationPlayState = 'running';
+          }
+        }, 600);
+      }
+    };
+
+    const intervalId = setInterval(() => {
+      const visitWrap = document.querySelector('#muffins-sweets-bakers-page .visit .wrap');
+      if (visitWrap && !(visitWrap as any).__hasCake3dListener) {
+        (visitWrap as any).__hasCake3dListener = true;
+        visitWrap.addEventListener('mouseenter', handleMouseEnter as EventListener);
+        visitWrap.addEventListener('mousemove', handleMouseMove as EventListener);
+        visitWrap.addEventListener('mouseleave', handleMouseLeave as EventListener);
+      }
+    }, 500);
+
+    return () => {
+      clearInterval(intervalId);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, []);
+
   // Interactive cursor parallax and 3D movement for Papa's Kitchen Standing Mascot Rooster before footer
   useEffect(() => {
     let rafId: number | null = null;

@@ -163,9 +163,9 @@
       color: var(--crust);
     }
     .brand img.sweets-brand-logo {
-      height: 46px;
+      height: 60px;
       width: auto;
-      max-width: 220px;
+      max-width: 280px;
       object-fit: contain;
       display: block;
       transition: transform 0.25s ease;
@@ -489,13 +489,34 @@
       font: 32px "Instrument Serif";
     }
     .faq details[open] summary:after { content: "−"; }
-    .faq details p { margin: 20px 0 0; }
-    .visit img {
-      width: 340px;
-      height: 280px;
+    .visit img,
+    .visit .visit-cake-img {
+      width: min(460px, 88vw);
+      height: auto;
+      max-height: 520px;
       object-fit: contain;
       margin: 0 auto 32px;
-      mix-blend-mode: multiply;
+      display: block;
+      background: transparent;
+      filter: drop-shadow(0 20px 40px rgba(217, 161, 50, 0.32)) drop-shadow(0 35px 70px rgba(91, 58, 31, 0.2));
+      animation: sweetsCakeFloat 5.2s ease-in-out infinite;
+      transform-origin: center bottom;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease;
+      will-change: transform;
+      cursor: pointer;
+    }
+    .visit img:hover,
+    .visit .visit-cake-img:hover {
+      transform: translateY(-16px) scale(1.045) rotate(-0.5deg);
+      filter: drop-shadow(0 28px 45px rgba(217, 161, 50, 0.48)) drop-shadow(0 48px 90px rgba(91, 58, 31, 0.28));
+    }
+    @keyframes sweetsCakeFloat {
+      0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-14px) rotate(0.8deg);
+      }
     }
     .visit .script { margin-bottom: 24px; }
     .visit h2 {
@@ -824,8 +845,8 @@
       .location div { padding: 28px; }
       .quote { font-size: 27px; }
       .journal { padding-top: 0; }
-      .faq summary { font-size: 30px; }
-      .visit img { width: 280px; height: 230px; }
+      .visit img,
+      .visit .visit-cake-img { width: min(340px, 86vw); height: auto; max-height: 380px; }
       .ticker-track { font-size: 64px; }
       .footer-grid { grid-template-columns: 1fr; gap: 40px; }
       .footer .brand strong { font-size: 76px; }
@@ -848,7 +869,7 @@
 <body>
   <header class="nav">
     <a class="brand" href="#home" aria-label="MuffInns Sweets &amp; Bakers Home">
-      <img class="sweets-brand-logo" src="/assets/aistudio/muffinns_bakery_basket_dark.png" alt="MuffInns Sweets &amp; Bakers" height="46" />
+      <img class="sweets-brand-logo" src="/assets/aistudio/muffinns_bakery_basket_dark.png" alt="MuffInns Sweets &amp; Bakers" height="60" />
     </a>
     <button class="menu-toggle" aria-expanded="false" aria-controls="main-links">Menu</button>
     <nav class="nav-links" id="main-links" aria-label="Main navigation">
@@ -858,7 +879,6 @@
       <a href="#locations">Contact</a>
       <a href="/" style="color:var(--mustard); font-weight:600;">← MUFFINNS Home</a>
     </nav>
-    <a class="button" href="#menu">Order for pickup</a>
   </header>
 
   <!-- HOME PAGE VIEW -->
@@ -1141,12 +1161,15 @@
     <!-- Visit CTA Section -->
     <section class="visit center">
       <div class="wrap reveal">
-        <img src="https://images.unsplash.com/photo-1691480162735-9b91238080f6?auto=format&amp;fit=crop&amp;w=1600&amp;q=90" alt="Fresh croissant" loading="lazy">
-        <div class="script">see you tomorrow morning</div>
-        <h2>Let’s get you a perfect loaf today</h2>
+        <picture class="visit-cake-picture" style="display:block; max-width:100%; perspective:1000px;">
+          <source srcset="/assets/aistudio/muffins-celebration-cake.webp" type="image/webp">
+          <img class="visit-cake-img" src="/assets/aistudio/fb0084e8-fd73-4609-aa06-0ac1cfe8c665_9ea868c2.png" alt="Muffins Sweets &amp; Bakers Artisan Mango &amp; Tropical Tiered Celebration Cake" loading="eager" fetchpriority="high" decoding="async">
+        </picture>
+        <div class="script">handcrafted celebration cakes &amp; daily treats</div>
+        <h2>Let’s craft your dream celebration cake today</h2>
         <div class="actions">
           <a class="button" href="#locations">Find us</a>
-          <a class="button outline" href="#menu">Order for pickup</a>
+          <a class="button outline" href="#menu">Explore custom cakes</a>
         </div>
       </div>
     </section>
